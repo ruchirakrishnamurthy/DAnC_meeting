@@ -7,3 +7,51 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# You can store a variable using the assignment operator <-. These variables are then stored in your enviroment. 
+```{r}
+x <- 1
+
+print(x) #Prints an out put of the variable inside the functions argument.
+
+y = 2 #You can use the '=' as an assignment operator, however this is not recommended because many arguments are structured to use '=' inside a function, therefore its best practice in R to use '<-'
+
+y #Just putting the variable will print the variable in your console 
+```
+# You can use variables inside other functions to make your code more 'dynamic' (meaning that you can change your variable earlier in your code and it'll subsequently change the rest of your outputs)
+```{r}
+z <- log(x) #Use the function log on variable x, this output will then be stored as a new variable called 'z' 
+
+z + 15 #Add 15 to this new variable 
+
+#Notice that if you didnt use variable assignments you would have to manually type in the outputs from your console to calculate what the log(x) + 15 is in this format. This 'dynamic' way of writing your code allows for clarity as well as fluid method for changing your inputs. 
+
+```
+# You can also update your variables in your environment if you wanted to change them (log transformations are a common resource)
+```{r}
+x <- x + 2 #Notice that the variable 'x' updated from 2 to 3 in your enviroment
+```
+
+# Challenge Problem #1: Create a variable called u, make that variable be the value of x times 1.5
+```{r}
+
+```
+
+# Data types: character strings, integers, and logical
+```{r}
+b <- "banana" 
+is.character(b) #This is a character string, meaning its a string of characters 
+is.numeric(b) 
+is.logical(b)
+
+nu <- 3/100
+is.character(nu)
+is.numeric(nu) #This is numeric, meaning its composed of numbers
+is.logical(nu)
+
+s <- TRUE
+is.character(s)
+is.numeric(s)
+is.logical(s) #This is logical, meaning that its either a TRUE or FALSE statement
+```
+
+
