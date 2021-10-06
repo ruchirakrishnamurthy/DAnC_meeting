@@ -36,22 +36,66 @@ x <- x + 2 #Notice that the variable 'x' updated from 2 to 3 in your enviroment
 
 ```
 
-# Data types: character strings, integers, and logical
+# Data types: character strings, integers, and logical. 
+## Character strings are composed of stringed together characters(letters + numbers)
+## Integers are composed of only numbers
+## Logical are TRUE/FALSE statements, this is important for understanding inputs for functions as well as their outputs. 
 ```{r}
 b <- "banana" 
-is.character(b) #This is a character string, meaning its a string of characters 
+is.character(b)  
 is.numeric(b) 
 is.logical(b)
-
+```
+```{r}
 nu <- 3/100
 is.character(nu)
-is.numeric(nu) #This is numeric, meaning its composed of numbers
+is.numeric(nu) 
 is.logical(nu)
-
-s <- TRUE
-is.character(s)
-is.numeric(s)
-is.logical(s) #This is logical, meaning that its either a TRUE or FALSE statement
 ```
 
+```{r}
+t <- TRUE
+is.character(s)
+is.numeric(s)
+is.logical(s) 
+```
+
+Vectorization: Vectors in R describes a set of values in a certain order of the same data type. This lets variables and functions have vectors for values. 
+```{r}
+1:8 #This is a vector of 1-8
+
+#You can also create a more advanced vector 
+2^(1:8)
+
+#If you wanted to be more specific in your integer selection inside the vector, you can utilize the concatenate fxn. c() 
+vector <- c(1,2,5)
+
+
+#You can also store characterstrings using this
+vector_characters <- c("Red", "Blue", "Green")
+vector_characters 
+
+#Or both
+vector_both <- c("Red", 1.2, "Purple")
+vector_both
+
+#Though it'll store these all as characters, which isn't useful for some applications. 
+typeof(vector_both)
+```
+
+A quick sidenote on variable names: They can be anything! With a few exceptions:
+do not use . in front of the variable, that'll store it as a hidden variable (not usually useful). They must also start with a letter of some sort
+```{r}
+apple <- "fruit" #Will not work if prefixed with a number!
+
+#Underscores are a great way to put spaces in long variable names
+
+paired_t_test <- "statistical test"
+
+```
+
+Challenge #2: Create a variable with a name of your own choosing that includes a vector of any 5 odd integers
+```{r}
+odd_vector <- c(1,3,5,7,9)
+```
 
