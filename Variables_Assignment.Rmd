@@ -23,21 +23,21 @@ z <- log(x) #Use the function log on variable x, this output will then be stored
 
 z + 15 #Add 15 to this new variable 
 
-#Notice that if you didnt use variable assignments you would have to manually type in the outputs from your console to calculate what the log(x) + 15 is in this format. This 'dynamic' way of writing your code allows for clarity as well as fluid method for changing your inputs. 
+#Notice that if you didnt use variable assignments you would have to manually type in the outputs from your console to calculate what the log(x) + 15 is in this format. This 'dynamic' way of writing your code allows for clarity as well as a fluid method for changing your inputs. 
 
 ```
-# You can also update your variables in your environment if you wanted to change them (log transformations are a common resource)
+# You can also update your variables in your environment if you wanted to change them (log transformations are common here)
 ```{r}
-x <- x + 2 #Notice that the variable 'x' updated from 2 to 3 in your enviroment
+x <- x + 2 #Notice that the variable 'x' updated from 2 to 3 in your environment
 ```
 
 # Challenge Problem #1: Create a variable called u, make that variable be the value of x times 1.5
 ```{r}
-
+u <- x * 1.5
 ```
 
 # Data types: character strings, integers, and logical. 
-## Character strings are composed of stringed together characters(letters + numbers)
+## Character strings are composed of stringed together characteristics (so words)
 ## Integers are composed of only numbers
 ## Logical are TRUE/FALSE statements, this is important for understanding inputs for functions as well as their outputs. 
 ```{r}
@@ -49,7 +49,7 @@ is.logical(b)
 ```
 ```{r}
 #What is this data type?
-nu <- 3/100
+nu <- 3/22
 is.character(nu)
 is.numeric(nu) 
 is.logical(nu)
@@ -58,9 +58,9 @@ is.logical(nu)
 ```{r}
 #What is this data type?
 t <- TRUE
-is.character(s)
-is.numeric(s)
-is.logical(s) 
+is.character(t)
+is.numeric(t)
+is.logical(t) 
 ```
 
 Vectorization: Vectors in R describes a set of values in a certain order of the same data type. This lets variables and functions have vectors for values. 
@@ -71,9 +71,9 @@ Vectorization: Vectors in R describes a set of values in a certain order of the 
 2^(1:8)
 
 #If you wanted to be more specific in your integer selection inside the vector, you can utilize the concatenate fxn. c() 
-vector <- c(1,2,5)
+vector <- c(1,2,5,4)
 
-
+vector
 #You can also store characterstrings using this
 vector_characters <- c("Red", "Blue", "Green")
 vector_characters 
@@ -99,6 +99,6 @@ paired_t_test <- "statistical test"
 
 Challenge #2: Create a variable with a name of your own choosing that includes a vector of any 5 odd integers
 ```{r}
-odd_vector <- c(1,3,5,7,9)
+
 ```
 
