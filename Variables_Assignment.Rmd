@@ -33,7 +33,7 @@ x <- x + 2 #Notice that the variable 'x' updated from 2 to 3 in your environment
 
 # Challenge Problem #1: Create a variable called u, make that variable be the value of x times 1.5
 ```{r}
-u <- x * 1.5
+u <- 1.5 * x
 ```
 
 # Data types: character strings, integers, and logical. 
@@ -61,44 +61,5 @@ t <- TRUE
 is.character(t)
 is.numeric(t)
 is.logical(t) 
-```
-
-Vectorization: Vectors in R describes a set of values in a certain order of the same data type. This lets variables and functions have vectors for values. 
-```{r}
-1:8 #This is a vector of 1-8
-
-#You can also create a more advanced vector 
-2^(1:8)
-
-#If you wanted to be more specific in your integer selection inside the vector, you can utilize the concatenate fxn. c() 
-vector <- c(1,2,5,4)
-
-vector
-#You can also store characterstrings using this
-vector_characters <- c("Red", "Blue", "Green")
-vector_characters 
-
-#Or both
-vector_both <- c("Red", 1.2, "Purple")
-vector_both
-
-#Though it'll store these all as characters, which isn't useful for some applications. 
-typeof(vector_both)
-```
-
-A quick sidenote on variable names: They can be anything! With a few exceptions:
-do not use . in front of the variable, that'll store it as a hidden variable (not usually useful). They must also start with a letter of some sort
-```{r}
-apple <- "fruit" #Will not work if prefixed with a number!
-
-#Underscores are a great way to put spaces in long variable names
-
-paired_t_test <- "statistical test"
-
-```
-
-Challenge #2: Create a variable with a name of your own choosing that includes a vector of any 5 odd integers
-```{r}
-
 ```
 
