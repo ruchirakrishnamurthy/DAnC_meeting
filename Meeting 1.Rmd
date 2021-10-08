@@ -1,0 +1,161 @@
+---
+title: "Meeting 1"
+author: "Joe Celebrezze, JT Miller, Andrea Chandler, Ruchira Krishnamurthy"
+date: "10/7/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# You can store a variable using the assignment operator <-. These variables are then stored in your enviroment. 
+```{r}
+x <- 1
+
+print(x) #Prints an out put of the variable inside the functions argument.
+
+y = 2 #You can use the '=' as an assignment operator, however this is not recommended because many arguments are structured to use '=' inside a function, therefore its best practice in R to use '<-'
+
+y #Just putting the variable will print the variable in your console 
+```
+# You can use variables inside other functions to make your code more 'dynamic' (meaning that you can change your variable earlier in your code and it'll subsequently change the rest of your outputs)
+```{r}
+z <- log(x) #Use the function log on variable x, this output will then be stored as a new variable called 'z' 
+
+z + 15 #Add 15 to this new variable 
+
+#Notice that if you didnt use variable assignments you would have to manually type in the outputs from your console to calculate what the log(x) + 15 is in this format. This 'dynamic' way of writing your code allows for clarity as well as a fluid method for changing your inputs. 
+
+```
+# You can also update your variables in your environment if you wanted to change them (log transformations are common here)
+```{r}
+x <- x + 2 #Notice that the variable 'x' updated from 2 to 3 in your environment
+```
+
+# Challenge Problem #1: Create a variable called u, make that variable be the value of x times 1.5
+```{r}
+u <- x * 1.5
+```
+
+# Data types: character strings, integers, and logical. 
+## Character strings are composed of stringed together characteristics (so words)
+## Integers are composed of only numbers
+## Logical are TRUE/FALSE statements, this is important for understanding inputs for functions as well as their outputs. 
+```{r}
+#What is this data type?
+b <- "banana" 
+is.character(b)  
+is.numeric(b) 
+is.logical(b)
+```
+```{r}
+#What is this data type?
+nu <- 3/22
+is.character(nu)
+is.numeric(nu) 
+is.logical(nu)
+```
+
+```{r}
+#What is this data type?
+t <- TRUE
+is.character(t)
+is.numeric(t)
+is.logical(t) 
+```
+
+Vectorization: Vectors in R describes a set of values in a certain order of the same data type. This lets variables and functions have vectors for values. 
+```{r}
+1:8 #This is a vector of 1-8
+
+#You can also create a more advanced vector 
+2^(1:8)
+
+#If you wanted to be more specific in your integer selection inside the vector, you can utilize the concatenate fxn. c() 
+vector <- c(1,2,5,4)
+
+vector
+#You can also store characterstrings using this
+vector_characters <- c("Red", "Blue", "Green")
+vector_characters 
+
+#Or both
+vector_both <- c("Red", 1.2, "Purple")
+vector_both
+
+#Though it'll store these all as characters, which isn't useful for some applications. 
+typeof(vector_both)
+```
+
+A quick sidenote on variable names: They can be anything! With a few exceptions:
+do not use . in front of the variable, that'll store it as a hidden variable (not usually useful). They must also start with a letter of some sort
+```{r}
+apple <- "fruit" #Will not work if prefixed with a number!
+
+#Underscores are a great way to put spaces in long variable names
+
+paired_t_test <- "statistical test"
+
+```
+
+Challenge #2: Create a variable with a name of your own choosing that includes a vector of any 5 odd integers
+```{r}
+
+```
+
+Andrea:
+
+
+
+
+
+
+
+# Packages
+
+## What are packages?
+Packages are groups of functions that typically relate to a certain goal. Anyone can write packages, but not all packages are on CRAN (comprehensive R archive network). As of now, there *are* over 10,000 packages on CRAN. Before we work with functions on specific packages, we must load the packages.
+
+## Installing, updating, removing loading packages that are on CRAN
+R and RStudio have established functionality for dealing with packages. To demonstrate this, we will be working with a very useful package called the 'tidyverse' which actually consists of multiple packages including ggplot2 (a data visualization package) and dplyr (a data wrangling/tidying package).
+
+Installing:
+```{r}
+install.packages('tidyverse')
+    # Note: the name of the package must be in quotes; both 'package-name' and "package-name"        would work
+```
+
+Updating:
+```{r}
+update.packages('tidyverse')
+```
+
+Removing:
+```{r}
+remove.packages('tidyverse')
+```
+
+Loading:
+```{r}
+# library('tidyverse')
+    # Note: the above line of code will not work because we just removed 'tidyverse' from our        library. In order for this to run, we must install it again
+
+install.packages('tidyverse')
+library('tidyverse')
+```
+
+Now, since the package has been installed and loaded, we could use the functions on that package!
+
+## Another way to load packages
+In almost all cases, there are multiple ways to do the same thing on R. This is true for loading packages. Another way to load packages is to go to the bottom right panel of RStudio and go to packages and select the empty box to the left of the package name to load it. Deselect the checked boxes if you wish to detach a certain package.
+
+## Checking what packages we have
+```{r, results='hide'}
+installed.packages()
+```
+
+## What about packages not on CRAN?
+For packages that are not on CRAN, we could still install and load them from the package-makers' GitHub page. This is not entirely common, as there are so many packages available on CRAN; however, for niche things, it is important to know that this is a possibility. See https://support.datacamp.com/hc/en-us/articles/360006286174-Installing-R-Packages-Not-Hosted-on-CRAN for more details.
+
+
