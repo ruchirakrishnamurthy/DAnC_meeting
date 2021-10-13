@@ -55,4 +55,35 @@ installed.packages()
 ## What about packages not on CRAN?
 For packages that are not on CRAN, we could still install and load them from the package-makers' GitHub page. This is not entirely common, as there are so many packages available on CRAN; however, for niche things, it is important to know that this is a possibility. See https://support.datacamp.com/hc/en-us/articles/360006286174-Installing-R-Packages-Not-Hosted-on-CRAN for more details.
 
+## Let's explore the dplyr package a bit more.
+To explore the dplyr package, we can look at packages (bottom right corner) and click on 'dplyr'. This help page shows all functions included in the dplyr package. Read through some of them, and tell them which function(s) look interesting or useful.
+
+Some of the most useful functions on dplyr:
+filter()
+group_by()
+mutate()
+rename()
+summarize()
+ungroup()
+
+# Reading in Dataframes
+
+## Reading in .csv files
+read.csv() is the function to read in a .csv file. Make sure that:
+
+1. The .csv file is located in your *working directory*. The working directory is where R will look for files you want to load and store files you want to save.
+
+  Questions about working directory?
+  
+2. There are quotes around the name of the file
+3. No typos!
+    
+
+```{r}
+read.csv('sea-urchin.csv')
+```
+
+
+## What about an Excel spreadsheet?
+Typically, I would convert an Excel spreadsheet into a .csv file to load it into R. This is the best way that I know to work with data stored on an Excel spreadsheet. To do this, Save As... > File Format > .csv
 
