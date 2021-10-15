@@ -7,3 +7,43 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+R as a calculator
+```{r}
+#Use R to calculate the log of 5 to the power of two. 
+
+#Use R to add the sum of 3 and 5 to 40
+
+#Use R to make the following true statement: 4 is greater than 1 
+
+#Use R to make the following false statement: 4 is less than 1
+
+#Use R to make the following true statement: 4 equals exactly 4
+
+
+```
+
+Vectors and data types
+```{r}
+#Create the following, a vector that only includes even numbers between the 1 and 10 and store it as the variable even
+
+#What data type is this vector? (Numeric, character string, or logical)
+
+
+#Create a vector of the colors blue, red, green and store it as the variable colors.
+
+#What data type is this vector? 
+```
+
+```{r}
+#What is a package? What function do I use to check what packages are in my R?
+
+
+#What function would I use to load in the package named tidyverse?
+
+
+#What does this package include?
+
+
+```
+
