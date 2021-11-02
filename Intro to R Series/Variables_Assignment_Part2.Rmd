@@ -15,7 +15,7 @@ How do these relate to our cooking analogy?
 ## R as a calculator
 ```{r}
 #How would I get an output of the value two times 6 all to the power of three? Hint, PEMDAS
-
+(2*6)^3
 
 
 ```
@@ -32,12 +32,17 @@ How do these relate to our cooking analogy?
 ## Variable assignment 
 ```{r}
 #What is the assignment operator in R? How would I go about assigning the value u the numeric value 2? 
+u<-2
+
 
 ```
 
 ## Data types
 ```{r}
 #What were the three basic data types? 
+#character string
+w <- "word"
+interger <- 1
 #What are some examples of these?
 ```
 
@@ -45,7 +50,7 @@ How do these relate to our cooking analogy?
 A quick sidenote on variable names: They can be anything! With a few exceptions:
 do not use . in front of the variable, that'll store it as a hidden variable (not usually useful). They must also start with a letter of some sort
 ```{r}
-apple <- "fruit" #Will not work if prefixed with a number!
+_apple <- "fruit" #Will not work if prefixed with a number!
 
 #Underscores are a great way to put spaces in long variable names
 
@@ -83,6 +88,6 @@ typeof(vector_both)
 
 Challenge #2: Create a variable with a name of your own choosing that includes a vector of any 5 odd integers
 ```{r}
-
+blah <- c(3,5,7,9,11)
 ```
 

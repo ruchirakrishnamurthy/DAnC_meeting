@@ -1,0 +1,70 @@
+---
+title: "ggplot2 quick introduction"
+author: "Joe Celebrezze"
+date: "11/2/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Loading packages, dataset
+```{r}
+#install.packages('tidyverse')
+library(tidyverse)
+library(palmerpenguins)
+penguins <- penguins # This isn't really necessary, but it is nice to have the dataset up in your environment
+```
+
+# Looking at the dataset
+```{r}
+penguins
+```
+
+# Introduction to ggplot2
+
+When plotting with ggplot2, you typically follow a certain syntax including geoms, stats, scales, themes, labels and facets (and other things not listed here, but conveniently listed on the ggplot2 cheatsheet here: https://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/data-visualization-2.1.pdf ). Let's go over *some* of these things without getting too caught up in the fine details.
+
+Basic syntax to always start with: this will be your first line of code describing what dataset you're using and what variables you want to plot
+  Example: ggplot(data = penguins, aes(x = bill_length_mm, y = body_mass_g)) where you specify your data and then the "aesthetics" of the graph (i.e. what is going to be on each axis)
+
+Geoms: used to represent datapoints, variables
+  Examples: geom_boxplot returns a boxplot, geom_point returns a scatterplot
+  
+Themes: used to change how your graph looks
+  Examples: theme_bw(), theme_void(), theme_dark(), theme_linedraw(), theme_gray(), theme_minimal()
+  
+Facets: used to divide your plot into various subplots based on variables in your dataset
+  Example: facet_wrap(~species) would return subplots for each species of penguin
+
+# Let's make a plot
+```{r}
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm))
+```
+Not a very exciting plot without datapoints represented. What feature should we add?
+
+# Trial 2
+```{r}
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm))+ #This '+' denotes that you're adding layers onto the graph above
+  geom_boxplot()
+```
+Nice! We have a boxplot showing that Gentoo penguins have the largest flipper length on average. What else could we do?
+
+- Separate by sex or site through a color
+
+# Messing with the graph
+```{r}
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm))+
+  geom_boxplot()
+```
+
+
+# Now, let's make our own graphs showing which penguins are the chunkiest
+
+You can look at this by comparing species to body mass, flipper length to body mass, site to body mass. Any comparison to try and understand which penguins are the chunkiest.
+
+```{r}
+
+```
+

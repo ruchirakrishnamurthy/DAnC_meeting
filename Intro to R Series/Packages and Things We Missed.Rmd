@@ -19,7 +19,7 @@ R and RStudio have established functionality for dealing with packages. To demon
 
 Installing:
 ```{r}
-install.packages('tidyverse')
+install.packages("tidyverse")
     # Note: the name of the package must be in quotes; both 'package-name' and "package-name"        would work
 ```
 
@@ -35,7 +35,7 @@ remove.packages('tidyverse')
 
 Loading:
 ```{r}
-# library('tidyverse')
+library('tidyverse')
     # Note: the above line of code will not work because we just removed 'tidyverse' from our        library. In order for this to run, we must install it again
 
 install.packages('tidyverse')
@@ -57,6 +57,11 @@ For packages that are not on CRAN, we could still install and load them from the
 
 ## Let's explore the dplyr package a bit more.
 To explore the dplyr package, we can look at packages (bottom right corner) and click on 'dplyr'. This help page shows all functions included in the dplyr package. Read through some of them, and tell them which function(s) look interesting or useful.
+```{r}
+library(dplyr)
+data(starwars)
+starwars
+```
 
 Some of the most useful functions on dplyr:
 filter()
@@ -80,8 +85,9 @@ read.csv() is the function to read in a .csv file. Make sure that:
     
 
 ```{r}
-read.csv('sea-urchin.csv')
+read.csv('Book2.csv')
 ```
+
 
 
 ## What about an Excel spreadsheet?
