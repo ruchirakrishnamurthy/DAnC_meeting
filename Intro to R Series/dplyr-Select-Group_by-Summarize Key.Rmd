@@ -20,6 +20,8 @@ library(palmerpenguins)
 # First let's look at the data set using head()
 ```{r view dataset}
 # View the first 6 rows
+# Assign data set "penguins" to the variable "penguins"
+penguins <- penguins
 head(penguins)
 ```
 
@@ -100,6 +102,8 @@ penguins %>%
 Useful links:
 https://dplyr.tidyverse.org/reference/summarise.html#useful-functions
 https://allisonhorst.shinyapps.io/dplyr-learnr/#section-welcome
+
+
 
 
 
