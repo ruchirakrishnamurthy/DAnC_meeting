@@ -42,7 +42,7 @@ penguins <- penguins
 
 
 
-#or (this is a second method without using the piping operator, it works well for singular lines of code, however its helpful to pipe things when doing multiple levels of data wrangling.  )
+
 
 
 
