@@ -25,14 +25,14 @@ penguins <- penguins
 #### When first looking at your data there are some simple tricks to get to know it before we go about wrangling the specifics for analysis
 ```{r}
 #The function head() allows you to look at the first 5 rows of your data. Go ahead and run head() on the variable penguins and check out the output.
-head(penguins)
+
 
 #Notice that there is more columns than displayed, so you would need to scroll through these to see every name. If your looking for a good way to find all the names of your columns (a very important thing to know when using dplyr), you can simply use the names() fxn on penguins. Go ahead and try this
-names(penguins)
+
 
 
 #Another helpful tip for prepping your data wrangling skills is using the unique() fxn. This fxn allows you to see all the unique outputs for a column, which is helpful if your trying to find specific instances of something in your data set.Try looking at what islands are recorded in our data set. To do this, you need to use the unique function and inside the argument you need to specify the data set (penguins) and use the '$' followed by the column name of interest. The '$' is telling R that you want to pull a subset of the data (islands in this case) from the dataframe (penguins in this case). 
-unique(penguins$island)
+
 ```
 ### Getting started with filtering
 #### Filtering is a function for creating a subset of your data that only contains rows that follow your specifications. 
@@ -40,12 +40,11 @@ unique(penguins$island)
 ```{r}
 #Lets try creating a new data frame called adelie. In this data frame utilize the filter() fxn in order to filter down the 'species' column to only include the 'Adelie' penguins. 
 
-adelie <- penguins %>% 
-  dplyr::filter(species == "Adelie")
 
-#or (this is a second method without using the piping operator, it works well for singular lines of code, however its helpful to pipe things when doing multiple levels of data wrangling.  )
 
-adelie <- filter(penguins, species == "Adelie")
+
+
+
 
 #When you finish, try control/command clicking the variable adelie. This should open a new window in R that allows you to look at the dataset. Notice that only Adelie penguins are kept. 
 ```
@@ -54,15 +53,7 @@ adelie <- filter(penguins, species == "Adelie")
 ```{r}
 #Try creating a new variable called gentoo_dream that only contains observations that feature 'Gentoo'  penguins on the island 'Dream'. Hint: To add another column to filter by, use the '&' operator OR ',' after species == 'Adelie'
 
-gentoo_dream <- penguins %>% 
-  filter(species == "Gentoo" & island == "Dream")
 
-#Or
-
-gentoo_dream <- penguins %>% 
-  filter(species == "Gentoo", island == "Dream")
-
-#What do you notice about this df? What does this possibly tell you about the relationship between the Gentoo and the island Dream?
 
 ```
 
@@ -70,15 +61,13 @@ gentoo_dream <- penguins %>%
 ```{r}
 #Say that I wanted to filter out my penguins data set to only include penguins with a bill length of greater than 40 mm, and store this as the variable 'penguins_w_long_bills'. How would I do this?
 #Hint: It necessary to know your column name to use the filter fxn, so what function gives us the name of all the columns?
-names(penguins)
 
-penguins_w_long_bills <- penguins %>% filter(bill_length_mm > 50)
 ```
 
 ```{r}
 #Now lets try filtering out the penguins data set to only include chinstrap penguins that have bills less than or equal to 40 mm. Call this variable chinstraps_w_short_bills
 
-chinstraps_w_short_bills <- penguins %>% filter(species == "Chinstrap", bill_length_mm <= 50)
+
 ```
 
 ### Mutate
@@ -86,16 +75,13 @@ chinstraps_w_short_bills <- penguins %>% filter(species == "Chinstrap", bill_len
 ```{r}
 #Lets create a new column in a new df that has the penguins flipper length in meters. Call this new df penguin_flippers
 
-penguin_flippers <- penguins %>% 
-  mutate(flipper_length_m = flipper_length_mm/1000)
+
 ```
 #### Creating multiple columns using mutate()
 ```{r}
 #You can create multiple columns using a single mutate() fxn simply by using the '&' or ',' operators like with filter. Try making a new df called 'flippers_and_weight' that has two additional rows: the first being the flipper length in meters and the second being the penguins body mass in kg.
 
-flippers_and_weight <- penguins %>% 
-  mutate(flipper_length_m = flipper_length_mm/1000,
-         body_mass_kg = body_mass_g/1000)
+
 
 ```
 
@@ -104,17 +90,13 @@ flippers_and_weight <- penguins %>%
 ```{r}
 #Create a new data frame called 'penguins_bill_ratio_2008'. For this dataframe only include penguins from 2008, and create a new column called 'bill_ratio' that has the ratio of bill length to bill depth. Hint: ratio means creating a fraction. 
 
-penguins_bill_ratio_2008 <- penguins %>% 
-  filter(year == 2008) %>% 
-  mutate(bill_ratio = bill_length_mm/bill_depth_mm)
+
 ```
 
 ```{r}
 #Create a new data frame called 'female_penguins_small'. For this data frame keep only female penguins and create a new column for body mass in kg called body_mass_kg, then filter to only include the penguins with mass less than or equal to 3 kg. 
 
-female_penguins_small <- penguins %>% 
-  mutate(body_mass_kg = body_mass_g/1000) %>% 
-  filter(sex == "female", body_mass_kg <= 3)
+
 
   
 ```
@@ -124,21 +106,13 @@ female_penguins_small <- penguins %>%
 ```{r}
 #How would I create a df called 'penguins_years_islands' that only includes the columns for penguin species, the islands they live on, and the years they were observed?
 
-penguins_years_islands <- penguins %>% 
-  select(species, year, island)
+
 ```
 
 #### The negation operator '!' or '-' can be used to exclude columns in a df. 
 ```{r}
 #Create a new df called 'homeless_penguins' and disclude the island column 
 
-homeless_penguins <- penguins %>% 
-  select(!island)
-
-#or 
-
-homeless_penguins <- penguins %>% 
-  select(-island)
 
 ```
 
@@ -151,11 +125,10 @@ penguins %>%
   group_by(species) %>% 
   summarize(mass_mean = mean(body_mass_g, na.rm = TRUE)) #Note that the na.rm = TRUE just means that missing values in the data set are excluded. 
 ```
+
 ```{r}
 #Now, create a table from the dataset penguins that calculates the mean flipper size by the gender of the penguin
-penguins %>% 
-  group_by(sex) %>% 
-  summarize(mean_flipper_length = mean(flipper_length_mm, na.rm = TRUE))
+
 ```
 ### Challenge Questions!
 #### Here everything you've learned is free game 
@@ -163,13 +136,8 @@ penguins %>%
 ```{r}
 #Design some code that will find which of the islands has the chonckiest (heaviest mean body mass) male penguins!
 
-#There may be multiple ways to do this, but here's what I did
- penguins %>% 
-  filter(sex == "male") %>% 
-  group_by(island) %>% 
-  summarize(mean_mass = mean(body_mass_g, na.rm = TRUE)) 
 
-#Turns out the Biscoe penguins are the chonckiest!
+
 
 ```
 
@@ -180,10 +148,7 @@ penguins %>%
 
 #Hint! NA values can be discluded by using the following fxn: drop_na()
 
-penguins_challenge_2 <- penguins %>% 
-  select(-bill_length_mm, -bill_depth_mm) %>% 
-  mutate(observation = seq(1:n())) %>% 
-  drop_na(sex)
+
 #Notice that there could be gaps in your observation numbers depending on how you wrote your code (ex observation 3 to 5). Why do you think this happened? What could you do to change this? Why might it be important to keep it one way or the other? 
 ```
 
@@ -191,14 +156,7 @@ penguins_challenge_2 <- penguins %>%
 
 #Lets do a sample study! I want you to create a data frame that only includes the columns species, bill length, and flipper length. In this new data frame, create 2 new columns that are bill length and flipper length in meters. Now use what you know to answer the following question. What is the mean ratio of bill length to flipper length of Adelie penguins for each of the islands. 
 
-penguins_df<- penguins %>% 
-  select(species, bill_length_mm, flipper_length_mm, island) %>% 
-  mutate(bill_length_m = bill_length_mm/1000, flipper_length_m =    flipper_length_mm/1000, bill_flipper_ratio = bill_length_m/flipper_length_m) %>% 
-  filter(species == "Adelie") %>% 
-  group_by(island) %>% 
-  summarize(mean_bill_flip_ratio = mean(bill_flipper_ratio, na.rm = TRUE))
-  
-penguins_df
+
   
 ```
 ### ggplot Intro
@@ -216,28 +174,17 @@ ggplot(data = penguins_cleaned, aes(x = species, y = flipper_length_mm)) +
 ```
 #### ggplot and dplyr Challenge!
 ```{r}
-#Create a new data frame called 'penguins_plot'. In this new data frame I want you to create a new column called 'bill_ratio' that takes the ratio of bill length to bill depth. Also make sure to disclude any NAs. Now use your ggplot skills to anwser the following question using a boxplot: Which penguin has the largerst median size bill ratio? 
+#Create a new data frame called 'penguins_plot'. In this new data frame I want you to create a new column called 'bill_ratio' that takes the ratio of bill length to bill depth. Also make sure to disclude any NAs. Now use your ggplot skills to anwser the following question using a boxplot: Which penguin species has the largerst median size bill ratio? 
 
-penguins_plot <- penguins %>% 
-  drop_na(bill_length_mm, bill_depth_mm) %>% 
-  mutate(bill_ratio = bill_length_mm/bill_depth_mm)  
 
-ggplot(data = penguins_plot, aes(x = species, y = bill_ratio)) +
-  geom_boxplot()
 #Recall that the line in the middle of the box and whisker plot is the median. 
-#The Gentoo penguin has the largest median bill ratio
+
 ```
+
 ```{r}
 #Now lets make a scatter plot only using specific penguins. Create a new data frame called 'chinstrap_comparison' that includes the following specifications: Chinstrap penguins, Males, on Dream island. Now visualize a scatter plot of these male chinstrap penguins where you plot their mass against flipper length. 
 
-chinstrap_comparison <- penguins %>% 
-  filter(species == "Chinstrap", sex == "male", island == "Dream")
 
-ggplot(data = chinstrap_comparison, aes(x = flipper_length_mm, y = body_mass_g)) +
-  geom_point() +
-  ggtitle("Chinstrap penguins on dream island correlation between flipper length and body mass") #This last bit is not required but simply allows you to give the plot a label so that you know what you were looking at. 
-
-#Notice the positive trend between flipper length and body mass, which is what you would expect.  
 ```
 
 
