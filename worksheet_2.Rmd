@@ -1,0 +1,191 @@
+---
+title: "Worksheet_2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### This worksheet is based off of Allison Horst's Dplyr tutorial found here: https://allisonhorst.shinyapps.io/dplyr-learnr/#section-welcome
+### Be sure to check out her work, she's an awesome teacher and coder here at UCSB!
+## Dplyr with LTER Palmer Penguins
+### This worksheet will challenge you to do some data wrangling and cleaning using the package dplyr. 
+
+```{r}
+#Load the necessary packages
+library(tidyverse)
+library(palmerpenguins)
+```
+```{r}
+#This package is a bit different in reading in the data, notice that if you run the variable 'penguins' its already stored and ready to go. To keep track of it however, lets store it using the following line of code
+penguins <- penguins
+```
+
+### Getting to know your data
+#### When first looking at your data there are some simple tricks to get to know it before we go about wrangling the specifics for analysis
+```{r}
+#The function head() allows you to look at the first 5 rows of your data. Go ahead and run head() on the variable penguins and check out the output.
+
+
+#Notice that there is more columns than displayed, so you would need to scroll through these to see every name. If your looking for a good way to find all the names of your columns (a very important thing to know when using dplyr), you can simply use the names() fxn on penguins. Go ahead and try this
+
+
+
+#Another helpful tip for prepping your data wrangling skills is using the unique() fxn. This fxn allows you to see all the unique outputs for a column, which is helpful if your trying to find specific instances of something in your data set.Try looking at what islands are recorded in our data set. To do this, you need to use the unique function and inside the argument you need to specify the data set (penguins) and use the '$' followed by the column name of interest. The '$' is telling R that you want to pull a subset of the data (islands in this case) from the dataframe (penguins in this case). 
+
+```
+### Getting started with filtering
+#### Filtering is a function for creating a subset of your data that only contains rows that follow your specifications. 
+##### The general format for this function is as follows: new_df <- df %>% filter(column_name == "specific_variable")
+```{r}
+#Lets try creating a new data frame called adelie. In this data frame utilize the filter() fxn in order to filter down the 'species' column to only include the 'Adelie' penguins. 
+
+
+
+
+
+
+
+#When you finish, try control/command clicking the variable adelie. This should open a new window in R that allows you to look at the dataset. Notice that only Adelie penguins are kept. 
+```
+
+#### You can also create multiple filters for different columns at the same time.
+```{r}
+#Try creating a new variable called gentoo_dream that only contains observations that feature 'Gentoo'  penguins on the island 'Dream'. Hint: To add another column to filter by, use the '&' operator OR ',' after species == 'Adelie'
+
+
+
+```
+
+#### When dealing with a column that specifies numeric values, you can also use some basic mathmatics to filter columns of interest. To do this recall what each of the following operators mean '>', '<', '<=', '>='
+```{r}
+#Say that I wanted to filter out my penguins data set to only include penguins with a bill length of greater than 40 mm, and store this as the variable 'penguins_w_long_bills'. How would I do this?
+#Hint: It necessary to know your column name to use the filter fxn, so what function gives us the name of all the columns?
+
+```
+
+```{r}
+#Now lets try filtering out the penguins data set to only include chinstrap penguins that have bills less than or equal to 40 mm. Call this variable chinstraps_w_short_bills
+
+
+```
+
+### Mutate
+#### Mutate is a function in dplyr that creates a new column while retaining the old columns. The structure is new_df <- df %>% mutate (new_column = whats_in_the_column)
+```{r}
+#Lets create a new column in a new df that has the penguins flipper length in meters. Call this new df penguin_flippers
+
+
+```
+#### Creating multiple columns using mutate()
+```{r}
+#You can create multiple columns using a single mutate() fxn simply by using the '&' or ',' operators like with filter. Try making a new df called 'flippers_and_weight' that has two additional rows: the first being the flipper length in meters and the second being the penguins body mass in kg.
+
+
+
+```
+
+### Challenge Questions!!!
+#### This section includes questions that will challenge you on using the dplyr functions filter() and mutate().
+```{r}
+#Create a new data frame called 'penguins_bill_ratio_2008'. For this dataframe only include penguins from 2008, and create a new column called 'bill_ratio' that has the ratio of bill length to bill depth. Hint: ratio means creating a fraction. 
+
+
+```
+
+```{r}
+#Create a new data frame called 'female_penguins_small'. For this data frame keep only female penguins and create a new column for body mass in kg called body_mass_kg, then filter to only include the penguins with mass less than or equal to 3 kg. 
+
+
+
+  
+```
+
+### So far we've been working with just excluding rows of observations, but what if we want to remove unimportant columns from our data frame? 
+#### Here we can use the select() function to only include columns of interest.The general formula for this is: new_df <- df %>% select(column1, column2)
+```{r}
+#How would I create a df called 'penguins_years_islands' that only includes the columns for penguin species, the islands they live on, and the years they were observed?
+
+
+```
+
+#### The negation operator '!' or '-' can be used to exclude columns in a df. 
+```{r}
+#Create a new df called 'homeless_penguins' and disclude the island column 
+
+
+```
+
+### Lets look at how to make some nice tables of summary statistics for specific groups
+#### To do this we will utilize the combo of the group_by() and summarize() functions. The general formula for this is df %>% group_by(column_of_interest) %>% summarize(some_stat = stat(column_2_of_interest, na.rm = TRUE))
+```{r}
+#Since this ones a bit more indepth lets show an example. If I wanted to create a table showing the mean masses of the penguins in relation to their species I could run the following
+
+penguins %>% 
+  group_by(species) %>% 
+  summarize(mass_mean = mean(body_mass_g, na.rm = TRUE)) #Note that the na.rm = TRUE just means that missing values in the data set are excluded. 
+```
+
+```{r}
+#Now, create a table from the dataset penguins that calculates the mean flipper size by the gender of the penguin
+
+```
+### Challenge Questions!
+#### Here everything you've learned is free game 
+
+```{r}
+#Design some code that will find which of the islands has the chonckiest (heaviest mean body mass) male penguins!
+
+
+
+
+```
+
+```{r}
+#Design some code that will create a new data frame with the following: All of the original columns in the penguins data set are present except for bill length and bill depth. There is a new column called 'observation' that specifies the numerical order of observations (row 1 = observation 1, row 5 = observation 5, etc) Finally this data does NOT include any NA values for the gender of the penguin. 
+
+#Hint! seq(1:n()) can be used as the function to create numeric values associated with row 1 to row n of your data frame
+
+#Hint! NA values can be discluded by using the following fxn: drop_na()
+
+
+#Notice that there could be gaps in your observation numbers depending on how you wrote your code (ex observation 3 to 5). Why do you think this happened? What could you do to change this? Why might it be important to keep it one way or the other? 
+```
+
+```{r}
+
+#Lets do a sample study! I want you to create a data frame that only includes the columns species, bill length, and flipper length. In this new data frame, create 2 new columns that are bill length and flipper length in meters. Now use what you know to answer the following question. What is the mean ratio of bill length to flipper length of Adelie penguins for each of the islands. 
+
+
+  
+```
+### ggplot Intro
+#### Now that we've worked through some of dplyr cleaning/wrangling functions your ready to start visualizing your data using ggplot. Recall that ggplot is structured as so: ggplot(data = df, aes(x=column1, y = column2)) + geom_something(). replace geom_something with whatever visualization is helpful for what your looking at, for example: geom_boxplot(), geom_point(), geom_hist(). Here's a ggplot cheat sheet to look at in case you want to see more visualization methods: https://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/data-visualization-2.1.pdf 
+```{r}
+#Lets give an example so that we have a basic structure
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm)) +
+  geom_boxplot()
+#Notice however that we have a message that appears talking about two rows being missing due to 'non-finite values' Usually this is because of NAs being recorded in the columns, so we can use what we know to clean our data up and plot it again. 
+penguins_cleaned <- penguins %>% 
+  drop_na(species, flipper_length_mm)
+#And now plot, notice there is no message this time 
+ggplot(data = penguins_cleaned, aes(x = species, y = flipper_length_mm)) +
+  geom_boxplot()
+```
+#### ggplot and dplyr Challenge!
+```{r}
+#Create a new data frame called 'penguins_plot'. In this new data frame I want you to create a new column called 'bill_ratio' that takes the ratio of bill length to bill depth. Also make sure to disclude any NAs. Now use your ggplot skills to anwser the following question using a boxplot: Which penguin species has the largerst median size bill ratio? 
+
+
+#Recall that the line in the middle of the box and whisker plot is the median. 
+
+```
+
+```{r}
+#Now lets make a scatter plot only using specific penguins. Create a new data frame called 'chinstrap_comparison' that includes the following specifications: Chinstrap penguins, Males, on Dream island. Now visualize a scatter plot of these male chinstrap penguins where you plot their mass against flipper length. 
+
+
+```
+
+
+

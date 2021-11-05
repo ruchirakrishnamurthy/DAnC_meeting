@@ -1,0 +1,109 @@
+---
+title: "dplyr-Select, Group By, Summarize"
+author: "Ruchira Krishnamurthy"
+date: "11/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# dplyr is a package in the tidyverse!
+# install.packages("palmerpenguins")
+# install.packages("tidyverse")
+library(tidyverse)
+library(palmerpenguins)
+```
+
+# Select
+- select() allows us to pick or exclude certain variables in your data
+
+# First let's look at the data set using head()
+```{r view dataset}
+# View the first 6 rows
+# Assign data set "penguins" to the variable "penguins"
+penguins <- penguins
+head(penguins)
+```
+
+# Let's say we want to only view the columns 'year', 'island', and 'species' from the penguin data and in that order.
+```{r}
+penguins %>%
+  select(year, island, species)
+```
+
+# View data set using head()
+```{r}
+# Note: the penguins data set does not change. Using %>% and select() we are choosing what columns or variables we would like to view. 
+head(penguins)
+```
+
+# View all the columns from species to bill_depth_mm as well as year
+
+```{r}
+# : operator
+penguins %>%
+  select(species:bill_depth_mm, year)
+```
+
+# Keep all the columns except the ones from species to bill_depth_mm and year
+```{r}
+# : operator + !or - operator
+
+# ! operator
+penguins %>%
+  select(!c(species:bill_depth_mm, year))
+
+# OR - operator
+penguins %>%
+  select(-c(species:bill_depth_mm, year))
+```
+
+
+# Group_by + Summarize 
+Use group_by() and summarize() to prepare a summary table of your data. 
+- Group_by() takes an existing table and converts it into a grouped table where operations are performed "by group"
+- Summarize() creates a new table containing a statistical summary of data you are interested in
+
+# Example
+Generate a summary table containing the mean of penguin body mass (body_mass_g), grouped by penguin species. Column in the summary table should be called mass_mean.
+```{r}
+# Note that the na.rm = TRUE argument is added to exclude missing values.
+penguins %>%
+  group_by(species) %>%
+  summarize(mass_mean = mean(body_mass_g, na.rm = TRUE))
+```
+
+What other statistical operations can we do on this data?
+```{r}
+penguins %>%
+  group_by(species) %>%
+  summarize(mass_mean = mean(body_mass_g, na.rm = TRUE),
+            mass_median = median(body_mass_g, na.rm = TRUE),
+            mass_sd = sd(body_mass_g, na.rm = TRUE))
+```
+
+What other variables can we group by? 
+```{r}
+penguins %>%
+  group_by(island, sex) %>%
+  summarize(mass_mean = mean(body_mass_g, na.rm = TRUE),
+            mass_median = median(body_mass_g, na.rm = TRUE),
+            mass_sd = sd(body_mass_g, na.rm = TRUE))
+```
+
+What happens if we didn't use the group_by() function?
+```{r}
+penguins %>%
+  summarize(mass_mean = mean(body_mass_g, na.rm = TRUE),
+            mass_median = median(body_mass_g, na.rm = TRUE),
+            mass_sd = sd(body_mass_g, na.rm = TRUE))
+```
+
+Useful links:
+https://dplyr.tidyverse.org/reference/summarise.html#useful-functions
+https://allisonhorst.shinyapps.io/dplyr-learnr/#section-welcome
+
+
+
+
+
