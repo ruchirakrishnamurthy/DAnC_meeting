@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Be sure to check out her work, she's an awesome teacher and coder here at UCSB!
 ## Dplyr with LTER Palmer Penguins
 ### This worksheet will challenge you to do some data wrangling and cleaning using the package dplyr. 
+#### Feel free to email me you have any lingering questions about dplyr or the code or if you spot an error I could of missed! jtmiller@ucsb.edu
 
 ```{r}
 #Load the necessary packages
