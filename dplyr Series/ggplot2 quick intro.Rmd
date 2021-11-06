@@ -60,6 +60,42 @@ ggplot(data = penguins, aes(x = species, y = flipper_length_mm))+
 ```
 
 
+# A little more in depth about what we can add to a ggplot
+```{r}
+penguins_noNA <- na.omit(penguins)
+
+ggplot(penguins_noNA, aes(x = body_mass_g, y = bill_length_mm, color = species)) + #Notice that I did not include data = penguins_noNA; "data =" makes your code easier to understand, but is not absolutely necessary. The first argument in ggplot() is assumed to be the dataset even without "data ="
+  geom_point()
+```
+
+```{r}
+?geom_smooth
+
+ggplot(penguins_noNA, aes(x = body_mass_g, y = bill_length_mm, color = species)) +
+  geom_point(alpha = 0.5, shape = "square", size = 2) +
+  geom_smooth() #Default method is the Loess method. To change method use "method ="
+```
+
+```{r}
+ggplot(penguins_noNA, aes(x = body_mass_g, y = bill_length_mm, color = species)) +
+  geom_point(alpha = 0.5, shape = "square", size = 1) +
+  geom_smooth(method = 'lm', se = FALSE, size = 0.5) +
+  facet_grid(island~sex) #In the format y ~ x where it facets on the y axis by island and on the x axis by sex
+
+ggplot(penguins_noNA, aes(x = body_mass_g, y = bill_length_mm, color = species)) +
+  geom_point(alpha = 0.5, shape = "square", size = 1) +
+  geom_smooth(method = 'lm', se = FALSE, size = 0.5) +
+  facet_wrap(island~sex) #Facets by both, but facet_wrap just facets in a rectangular format and does not separate by axes like facet_grid
+```
+
+```{r}
+ggplot(penguins_noNA, aes(x = body_mass_g, y = bill_length_mm, color = species)) +
+  geom_point(alpha = 0.5, shape = "square", size = 1) +
+  geom_smooth(method = 'lm', se = FALSE, size = 0.5) +
+  facet_grid(island~sex) +
+  theme_bw()
+```
+
 # Now, let's make our own graphs showing which penguins are the chunkiest
 
 You can look at this by comparing species to body mass, flipper length to body mass, site to body mass. Any comparison to try and understand which penguins are the chunkiest.
@@ -68,3 +104,7 @@ You can look at this by comparing species to body mass, flipper length to body m
 
 ```
 
+# But what if we want to customize how our graphs look
+
+Axes titles, colors, etc.
+JT will tell you how to do that!!
