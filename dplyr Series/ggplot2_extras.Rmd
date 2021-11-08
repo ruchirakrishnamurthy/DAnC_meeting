@@ -1,0 +1,53 @@
+---
+title: "ggplot2_extras"
+author: "JT Miller"
+date: "11/7/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Loading in the packages
+```{r}
+library(ggplot2)
+library(palmerpenguins)
+penguins <- penguins
+```
+
+### Adding axes titles 
+```{r}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_boxplot() + 
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species")
+
+#OR
+
+
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+         geom_boxplot() +
+  labs(
+    x = "Species",
+    y = "Body Mass",
+    title = "Penguin Body Mass by Species"
+  )
+  
+  
+```
+### Changing color by species
+```{r}
+ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot() + 
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species")
+```
+### But what if I want my own specific colors?
+```{r}
+#Many methods for this, but you can assign your own own color using hexadecimal 
+
+```
+
