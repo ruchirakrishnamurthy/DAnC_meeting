@@ -34,7 +34,7 @@ ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
 
 ### Changing color by species
 ```{r}
-ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
+ggplot(data = penguins, aes(x = species, y = body_mass_g,)) +
   geom_boxplot() + 
   xlab("Species") +
   ylab("Body Mass (g)") +
@@ -61,6 +61,7 @@ ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
 ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
   geom_boxplot() + 
   theme_bw() +
+  theme(plot.title = element_text(face = "bold")) +
   xlab("Species") +
   ylab("Body Mass (g)") +
   ggtitle("Body Mass by Species")
@@ -94,7 +95,8 @@ ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
   xlab("Species") +
   ylab("Body Mass (g)") +
   ggtitle("Body Mass by Species") +
-  labs
+  labs(caption = "Data from Palmer LTER") 
+  
 ```
 
 ```{r}
@@ -104,7 +106,8 @@ ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
   theme_bw() +
   xlab("Species") +
   ylab("Body Mass (g)") +
-  ggtitle("Body Mass by Species")
+  ggtitle("Body Mass by Species") +
+  theme(plot.title = element_text(color = "purple", face = "bold", hjust = 0.5))
 ```
 
 
