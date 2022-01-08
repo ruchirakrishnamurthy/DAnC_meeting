@@ -20,13 +20,21 @@ penguins <- penguins
 ### Adding axes titles 
 ```{r}
 ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
-  geom_boxplot() 
+  geom_boxplot() +
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass of Penguins Among Species")
 
 #OR
 
 
 ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
-  geom_boxplot() 
+  geom_boxplot() +
+  labs(
+    x = "Species",
+    y = "Body Mass (g)",
+    title = "Body Mass of Penguins Among Species"
+  )
  
   
   
@@ -34,7 +42,7 @@ ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
 
 ### Changing color by species
 ```{r}
-ggplot(data = penguins, aes(x = species, y = body_mass_g,)) +
+ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
   geom_boxplot() + 
   xlab("Species") +
   ylab("Body Mass (g)") +
@@ -51,9 +59,17 @@ ggplot(data = penguins) +
 #Want to change the background? 
 ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
   geom_boxplot() + 
+  theme_void() +
   xlab("Species") +
   ylab("Body Mass (g)") +
   ggtitle("Body Mass by Species") 
+
+ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot() + 
+  theme_void() +
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species")
 ```
 
 ```{r}
@@ -72,6 +88,7 @@ ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
 ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
   geom_boxplot() + 
   theme_bw() +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5)) +
   xlab("Species") +
   ylab("Body Mass (g)") +
   ggtitle("Body Mass by Species")
@@ -82,6 +99,7 @@ ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
 ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
   geom_boxplot() + 
   theme_bw() +
+  theme(plot.title = element_text(face = "bold", hjust = 1)) +
   xlab("Species") +
   ylab("Body Mass (g)") +
   ggtitle("Body Mass by Species")

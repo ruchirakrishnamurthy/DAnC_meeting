@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Loading packages, dataset
 ```{r}
 #install.packages('tidyverse')
+install.packages("palmerpenguins")
 library(tidyverse)
 library(palmerpenguins)
 penguins <- penguins # This isn't really necessary, but it is nice to have the dataset up in your environment
@@ -52,11 +53,17 @@ ggplot(data = penguins, aes(x = species, y = flipper_length_mm))+ #This '+' deno
 Nice! We have a boxplot showing that Gentoo penguins have the largest flipper length on average. What else could we do?
 
 - Separate by sex or site through a color
+- Island vs. body mass
+  - Facet by island
 
 # Messing with the graph
 ```{r}
-ggplot(data = penguins, aes(x = species, y = flipper_length_mm))+
-  geom_boxplot()
+penguins <- penguins %>% 
+  na.omit(penguins)
+
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm, color = sex))+
+  geom_boxplot() +
+  facet_grid(~island)
 ```
 
 
@@ -72,8 +79,8 @@ ggplot(penguins_noNA, aes(x = body_mass_g, y = bill_length_mm, color = species))
 ?geom_smooth
 
 ggplot(penguins_noNA, aes(x = body_mass_g, y = bill_length_mm, color = species)) +
-  geom_point(alpha = 0.5, shape = "square", size = 2) +
-  geom_smooth() #Default method is the Loess method. To change method use "method ="
+  geom_point(alpha = 0.5, shape = "triangle", size = 2) +
+  geom_smooth(method = "lm") #Default method is the Loess method. To change method use "method ="
 ```
 
 ```{r}
