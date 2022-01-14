@@ -92,8 +92,25 @@ ggplot() +
   geom_boxplot(data = penguins, aes(x = species, y = flipper_length_mm))
 ```
 ### Now lets combine dplyr with ggplot 
+#### Lets say that I am interested in understanding how the ratio of bill length to bill depth of the Adelie penguins differs among island populations. Lets use dplyr to wrangle our data and then ggplot to plot it. 
 ```{r}
+penguins_adelie_ratio <- penguins %>% 
+  filter(species == "Adelie") %>% 
+  mutate(bill_ratio_mm = bill_length_mm/bill_depth_mm)
 
+ggplot(data = penguins_adelie_ratio, aes(x = island, y = bill_ratio_mm)) +
+  geom_boxplot()
+```
+### Challenge Question 2
+#### What if we're interested in seeing if theres a relationship between flipper length and the body mass of male chinstrap penguins? Visualize this using a scatter plot
+#### Hint: geom_point() can be used here for creating a scatterplot
+```{r}
+chinstraps <- penguins %>% 
+  filter(species == "Chinstrap") %>% 
+  filter(sex == "male")
+
+ggplot(chinstraps, aes(x = flipper_length_mm, y= body_mass_g)) +
+  geom_point() 
 ```
 
 
