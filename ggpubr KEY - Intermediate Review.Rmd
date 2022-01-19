@@ -1,0 +1,137 @@
+---
+title: "intermediate review ggpubr"
+author: "Joe Celebrezze"
+date: "1/19/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# For ggplot2, dplyr, etc.
+library(tidyverse)
+
+# For ggpubr section
+library(ggpubr)
+library(cowplot) #Another way to arrange multiple plots
+
+# For pretty statistical summary table section
+library(gt)
+library(gtsummary)
+
+# For palmer penguins dataset
+library(palmerpenguins)
+```
+
+The following script is taken and derived from Sam Sambado's "Publishable Figures" tutorial
+
+# ggpubr Package
+
+With the ggpubr package, you can easily add things atop ggplot2 visualizations. Below are examples of adding p-values for comparisons between the penguin species and arranging multiple plots.
+
+ggpubr has capabilities including:
+  -  Adding background images
+  -  Adding summary statistics
+  -  Annotating plots
+  -  Arranging multiple ggplots
+  -  Visualizing error
+  -  Other themes not included in ggplot2 package
+  -  Etc.
+  
+## Adding p-values
+```{r}
+# We want to make comparisons between the three species, so the first thing we are going to do is define the data that we are making comparisons for:
+spp_comparisons <- list(c("Adelie", "Chinstrap"), c("Adelie", "Gentoo"), c("Chinstrap", "Gentoo"))
+```
+
+ggpubr plots follow slightly different format that ggplot(), but share a variety of concepts
+
+Making boxplots comparing different species and adding p-values to compare the means
+```{r}
+ggboxplot(na.omit(penguins), x = "species", y = "flipper_length_mm",  # define data you want to plot
+         add = "boxplot", add.params = list(fill = "darkgray")) + # we want a boxplot
+  stat_compare_means(comparisons = spp_comparisons, aes(label = "p.signif")) + # stat_compare_means adds p-values of your comparisons, aes(label = ) adds a label
+  stat_compare_means(label.y = 250, label.x = .7) + # print statistical test used to make comparisons and specify where to put it (i.e. Kruskal-Wallis, p < 2.2e-16)
+  labs(x = "Species", 
+       y = "Flipper Length (mm)") + # change axes labels; note that this is identical to ggplot
+  theme(axis.title = element_text(face = 'bold')) # change axis titles to bold; again note that this is identical to ggplot
+```
+
+## Arranging multiple ggplots
+
+First, let's make some plots
+```{r}
+plot1 <- penguins %>% 
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species, shape = sex)) + #specify data
+  geom_point(alpha = 0.5) + #scatterplot, alpha sets transparency
+  geom_smooth(method = "lm", se = FALSE, size = 0.5) + #add linear regression line (method = lm) with no standard error bar
+  labs(x = "Bill Length (mm)", y = "Bill Depth (mm)", color = "Species", shape = "Sex") +
+  theme_minimal() +
+  theme(axis.title = element_text(face = 'bold'))
+plot1
+```
+
+Copy and paste above chunk twice and change some variables around...
+```{r}
+plot2 <- penguins %>% 
+  ggplot(aes(x = bill_length_mm, y = body_mass_g, color = species, shape = sex)) + #specify data
+  geom_point(alpha = 0.5) + #scatterplot, alpha sets transparency
+  geom_smooth(method = "lm", se = FALSE, size = 0.5) + #add linear regression line (method = lm) with no standard error bar
+  labs(x = "Bill Length (mm)", y = "Body Mass (g)", color = "Species", shape = "Sex") +
+  theme_minimal() +
+  theme(axis.title = element_text(face = 'bold'))
+plot2
+
+plot3 <- penguins %>% 
+  ggplot(aes(x = body_mass_g, y = bill_depth_mm, color = species, shape = sex)) + #specify data
+  geom_point(alpha = 0.5) + #scatterplot, alpha sets transparency
+  geom_smooth(method = "lm", se = FALSE, size = 0.5) + #add linear regression line (method = lm) with no standard error bar
+  labs(x = "Body Mass(g)", y = "Bill Depth (mm)", color = "Species", shape = "Sex") +
+  theme_minimal() +
+  theme(axis.title = element_text(face = 'bold'))
+plot3
+```
+
+Now that we have three plots, let's place them side-by-side using ggpubr's function ggarrange()
+  -  first define which plots to include
+  -  ncol: number of columns
+  -  nrow: number of rows
+  -  legend: specifies legend position as "top", "bottom", "left",         "right" or "none"
+  -  common.legend: if TRUE, common unique legend created for                arranged plots
+```{r}
+ggarrange(plot1, plot2, plot3, ncol = 2, nrow = 2, common.legend = TRUE)
+```
+
+# Side note: using cowplot to arrange multiple plots
+
+Cowplot is another package that can be used to arrange multiple plots. Like ggpubr, it can also streamline plot themes and annotate plots
+
+```{r}
+cowplot_ex <- plot_grid(plot1, plot2, plot3, labels = c('A', 'B', 'C'))
+
+cowplot_ex
+```
+
+Note: it is possible to add common legend to this, but it is not straightforward like ggpubr, so instead I will clean up the multiple legends by removing the legend from two of the plots
+
+I am also going to play around with some aesthetics including:
+  -  ncol: number of columns
+  -  nrow: number of rows
+  -  label size and font
+  
+```{r}
+cowplot_ex2 <- plot_grid(plot1 + theme(legend.position = 'none'),
+                        plot2 + theme(legend.position = 'none'), 
+                        plot3, labels = c('A', 'B', 'C'),
+                        ncol = 2, nrow = 2, 
+                        # above was default, but just to show you that you can do this...
+                        label_fontfamily = 'serif', label_fontface = 'bold', 
+                        label_colour = 'blue', # label aesthetics
+                        ) 
+
+cowplot_ex2
+```
+
+The above examples just barely scratch the surface of these packages!

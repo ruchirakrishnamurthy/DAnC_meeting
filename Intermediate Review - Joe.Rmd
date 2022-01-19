@@ -50,11 +50,11 @@ plot.improved <- ggplot(data = na.omit(penguins), # omit NAs from dataset for vi
   facet_grid(island ~ sex, # want to create a "grid" for our geom_points. facet_wrap is another option for 1 variable
              scale = "free_y",  # want to y axis to best fit each group, not for entire dataset
              labeller = labeller(sex = supp.labs)) + # want to change labels from lower to uppercase
-  scale_color_manual(values = c("orange", "red", "blue")) + # choose colors manually (make sure use scale_COLOR not scale_FILL since in line 66 we said COLOR = species)
+  scale_color_manual(values = c("orange", "red", "blue")) + # choose colors manually (make sure use scale_COLOR not scale_FILL since in line 48 we said COLOR = species)
   labs(x = "Flipper Length (mm)", # change the x axis labels to something nicer to look at
        y = "Bill Depth (mm)", # change the y axis labels to something nicer to look at
        color = "Species") + # this changes the title of your legend
-  theme_bw() # this sets the entire theme to a white background with light bordering - play around with theme_*()
+  theme_bw() # this sets the entire theme to a white background with light bordering
 
 plot.improved
 ```
@@ -62,10 +62,10 @@ plot.improved
 ## Now, messing with the theme a bit to get it looking exactly how we want it to.
 ```{r}
 plot.improved2 <- plot.improved +
-theme(axis.title = element_text(face = "bold"), # gives us bold text for axes labels Body & Flipper
+theme(axis.title = element_text(face = "bold"), # gives us bold text for axes labels Body & Flipper; can also do face = "italic" or face = "bold.italic"
         strip.background = element_rect(fill = "gray95"), # changes the colors of the facet_grid rectangles
         strip.text = element_text(size = 10, face = "bold" ), # change size of font in facet_grid label and make it bold
-        legend.position = "bottom", # move legend to bottom of graph (there are many ways of doing this, this is one)
+        legend.position = "bottom", # move legend to bottom of graph (there are many ways of doing this, this is one); can also do legend.position = "top", "left", "right"
         legend.text = element_text(size = 10), # make legend text same size as facet_grid text
         legend.title = element_text(face = "bold")) # make legend title a bold font
 
@@ -73,6 +73,7 @@ plot.improved2
 ```
 
 # Working with ggpubr package
+
 With the ggpubr package, you can easily add things atop ggplot2 visualizations. Below is an example of adding p-values for comparisons between the penguin species, but you can also add things like:
   -  Adding background images
   -  Adding summary statistics
@@ -88,27 +89,53 @@ my_comparisons <- list(c("Adelie", "Chinstrap"), c("Adelie", "Gentoo"), c("Chins
 
 # slightly different format that ggplot() but relatively similar concepts
 ggboxplot(na.omit(penguins), x = "species", y = "body_mass_g",  # data you want to plot
-         add = "boxplot", add.params = list(fill = "grey89")) + # fill in boxplots
+         add = "boxplot", add.params = list(fill = "darkgray")) + # fill in boxplots
   stat_compare_means(comparisons = my_comparisons, aes(label = "p.signif")) + # print p-value of your comparisons
-  stat_compare_means(label.y = 7500, label.x = .7) + # print statistical test used to make comparisons
+  stat_compare_means(label.y = 7500, label.x = .7) + # print statistical test used to make comparisons and specify where to put it (i.e. Kruskal-Wallis, p < 2.2e-16)
   labs(x = "Species", # change axes labels
        y = "Body Mass (g)")
 ```
 
 # Making a pretty statistical summary table
+
+## Bare minimum
 ```{r}
 penguins %>% 
   tbl_summary() #This looks okay, but it is a bit messy and includes data that is not overly statistically interesting. I think we can do better.
+```
 
-penguins_table <- penguins %>% 
+## Improved
+```{r}
+#First, our labels (i.e. body_mass_g, sex, bill_length_mm, etc.) are not publication-worthy. One way to rename labels is to use dplyr function rename(); however, note the limitation that the underscores remain
+penguins2 <- penguins %>% 
+  rename(Sex = sex) %>% # Format: rename(new variable name = old variable name)
+  rename(Year = year) %>% 
+  rename(Body_Mass_g = body_mass_g) %>% 
+  rename(Flipper_Length_mm = flipper_length_mm) %>% 
+  rename(Bill_Depth_mm = bill_depth_mm) %>% 
+  rename(Bill_Length_mm = bill_length_mm) %>% 
+  rename(Island = island)
+```
+
+
+```{r}
+penguins_table <- penguins2 %>% 
   tbl_summary(by = species, # We want to group by species
               statistic = list(all_continuous() ~ "{mean} ({sd})"), # For all continuous variables, we will add the mean and the standard deviation in our specified format
-              missing_text = "(Missing)", # To specify our missing data
-  add_p() %>% # To add p value 
+              missing_text = "(Missing)") %>%  # To specify our missing data
+  add_p() %>%  # To add p value 
   add_stat_label(location = "column") # To specify on the table what stats we are collecting for each row
   
-  #MESS WITH THE LABELS!
-  
-penguins_table
+penguins_table # This looks a lot better than our first one, but I still think we can do a better job
+```
+
+## Publishable
+```{r}
+publishable_penguins_table <- penguins_table %>% 
+  modify_header(label ~ "**Variable**") %>%  # Rather than "characteristic", we want the header (top left corner) to be variable. The two asterisks mean BOLD. If it was "*Variable*", it would be italicized 
+  bold_labels() %>% # Pretty self-explanatory
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**Species**")
+
+publishable_penguins_table
 ```
 
