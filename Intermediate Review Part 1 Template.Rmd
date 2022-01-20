@@ -1,0 +1,91 @@
+---
+title: "intermediate review - publishable figures"
+author: "Joe Celebrezze"
+date: "1/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# For ggplot2, dplyr, etc.
+library(tidyverse)
+
+# For ggpubr section
+library(ggpubr)
+
+# For pretty statistical summary table section
+library(gt)
+library(gtsummary)
+
+# For palmer penguins dataset
+library(palmerpenguins) # This will load the palmer penguins dataset, as a dataset called penguins
+```
+
+```{r}
+# view() to view the data set
+
+```
+
+
+The following script is taken and derived from Sam Sambado's "Publishable Figures" tutorial
+
+# GGPlot2: An example of making nice looking plots
+
+## First, let's set up a basic dotplot faceted by island and sex
+- Numerical variables that we are interested in are flipper length and bill depth 
+- Let's also color by species
+```{r}
+plot <- ggplot(data = , # omit NAs from dataset for visualization purposes
+       aes()) + # choose our variables of interest
+  geom_point() + # geom_point makes sense since there's 2 numeric values
+  facet_grid() + # want to create a "grid" for our geom_points. facet_wrap is another option for 1 variable
+  theme_bw() # this sets the entire theme to a white background with light bordering - play around with theme_*()
+plot
+```
+
+
+## Let's fix some of the more clunky features from the above plot to make it look nicer
+What are some features that we want to change?
+
+```{r}
+# We want to change lowercase "female" and "male" to uppercase
+# State your new labels in a vector  
+supp.labs <- c() 
+
+# Add labels or names to the vector
+names(supp.labs) <- c("female", "male")
+
+supp.labs
+```
+
+
+```{r}
+# Create an improved plot called "plot.improved"
+# For colors: https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf
+
+```
+
+
+## Now, messing with the theme a bit to get it looking exactly how we want it to.
+1) Bold text for axes labels Bill and Flipper 
+2) Change the colors of the facet grid rectangles 
+3) Change the size of font in facet grid labels and make them bold   
+4) Move the legend to the bottom of the graph  
+5) Make legend text same size as facet_grid text
+6) Make legend title a bold font
+```{r}
+# Create a more improved plot called plot.improved2
+plot.improved2 <- plot.improved +
+theme(axis.title = , # gives us bold text for axes labels Body & Flipper, 
+        strip.background = , # changes the colors of the facet_grid rectangles
+        strip.text = , 
+        legend.position = , # move legend to bottom of graph
+        legend.text = , # make legend text same size as facet_grid text
+        legend.title = ) # make legend title a bold font
+
+plot.improved2
+```
+
