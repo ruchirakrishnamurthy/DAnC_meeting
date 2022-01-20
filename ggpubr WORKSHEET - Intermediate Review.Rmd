@@ -110,7 +110,7 @@ cowplot_ex2 <- plot_grid(plot1 + theme(legend.position = 'none'),
                         ncol = 2, nrow = 2, 
                         # above was default, but just to show you that you can do this...
                         label_fontfamily = 'serif', label_fontface = 'bold', 
-                        label_colour = 'blue', # label aesthetics
+                        label_colour = 'blue' # label aesthetics
                         ) 
 
 cowplot_ex2
