@@ -1,0 +1,59 @@
+---
+title: "Data Types Intermediate Worksheet"
+author: "Ruchira Krishnamurthy"
+date: "1/13/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Different Data types: character strings, integers, and logical. 
+## Character strings are composed of stringed together characteristics (so words)
+## Integers are composed of only numbers
+## Logical are TRUE/FALSE statements, this is important for understanding inputs for functions as well as their outputs. 
+```{r}
+#What is this data type?
+a <- "apple"
+# How can we check?
+is.character(a)  
+is.numeric(a) 
+is.logical(a)
+```
+
+
+```{r}
+#What is this data type?
+num <- 4/10
+is.character(num)
+is.numeric(num) 
+is.logical(num)
+```
+
+```{r}
+# What is this data type?
+f <- FALSE
+is.character(f)
+is.numeric(f)
+is.logical(f) 
+```
+
+Vectorization: Vectors in R describes a set of values in a certain order of the same data type. This lets variables and functions have vectors for values. 
+```{r}
+# One way to create a vector is the concatenate function c()
+vector <- c()
+vector
+
+# Example of a calculation you can do with vectors 
+
+#You can also store character strings using the concatenate function
+# Character vector with three movies
+vector_characters <- c()
+vector_characters 
+
+# Or both
+# 2 numbers + a movie
+vector_both <- c()
+vector_both
+```

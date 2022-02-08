@@ -1,0 +1,159 @@
+---
+title: "ggplot2_extras"
+author: "JT Miller"
+date: "11/7/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Loading in the packages
+```{r}
+library(ggplot2)
+library(palmerpenguins)
+library(tidyverse)
+penguins <- penguins
+```
+
+### Adding axes titles 
+```{r}
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_boxplot() + 
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species")
+
+#OR
+
+
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+         geom_boxplot() +
+  labs(
+    x = "Species",
+    y = "Body Mass",
+    title = "Penguin Body Mass by Species"
+  )
+  
+  
+```
+### Changing color by species
+```{r}
+ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot() + 
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species")
+
+#Or 
+
+ggplot(data = penguins) +
+  geom_histogram(aes(x = body_mass_g, col = factor(species))) + 
+  scale_fill_brewer(palette = "Set2")
+```
+### Some more basics to make your plots look nicer
+```{r}
+#Want to change the background? 
+ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot() + 
+  theme_bw() + #Gets rid of that grey background, there is also theme_dark() though I have no Idea why you would do this to yourself.
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species") 
+
+
+#What if you want to Bold my ggplot title?
+ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot() + 
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold")) +
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species")
+
+#Center it?
+ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot() + 
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5)) +
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species")
+
+#To the right?
+ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot() + 
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold", hjust = 1)) +
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species")
+
+#Note the argument for hjust is zero through one, where closer to zero is left side and closer to one is right side. 
+
+#What if you want to add a caption?
+ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot() + 
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold", hjust = 1)) +
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species") +
+  labs
+
+#What if you want to change the color of the text?
+ggplot(data = penguins, aes(x = species, y = body_mass_g, color = species)) +
+  geom_boxplot() + 
+  theme_bw() +
+  theme(plot.title = element_text(color = "purple", face = "bold", hjust = 0.5),
+        plot.caption = element_text(face = "italic")) +
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species") +
+  labs(caption = "data from Palmer LTER") 
+  
+
+```
+
+
+Customizing colors
+```{r}
+#You can do this manually by assigning either hexadecimals or specific color names to our plots
+
+ggplot(data = penguins, aes(x = species, y = body_mass_g)) +
+  geom_boxplot(fill = "#A4A4A4", color = "darkred") + 
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5)) +
+  xlab("Species") +
+  ylab("Body Mass (g)") +
+  ggtitle("Body Mass by Species")
+
+
+
+ggplot() +
+  geom_boxplot(data = penguins, aes(x = species, y = body_mass_g, fill = species)) +
+  scale_fill_manual(values=c("#999999", "#E69F00", "#56B4E9"))
+
+
+
+#If you want to really get into customization of colors, I would recommend the packages colorspace
+library(colorspace)
+
+
+
+ggplot(penguins, aes(x=bill_depth_mm, y = bill_length_mm, color = species)) +
+  geom_point() +
+  scale_color_discrete_qualitative(palette = "Set 2")
+  
+# You can also use their package to assign premade palettes to a variable
+cols <- rainbow_hcl(3)
+
+ggplot(penguins, aes(x=bill_depth_mm, y = bill_length_mm, colour = factor(species))) +
+  geom_point() +
+  scale_colour_manual(values = cols)
+
+#Not a big deal when we have just three species, however imagine you have ALOT of variables for that part you want to differentiate by
+
+```
+

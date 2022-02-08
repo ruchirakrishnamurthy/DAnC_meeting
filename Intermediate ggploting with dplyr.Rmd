@@ -1,0 +1,117 @@
+---
+title: "Ggplot dive with Dplyr"
+author: "JT Miller"
+date: "1/12/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## This markdown is to serve as a review for using the packages Dplyr and ggplot2 in the tidyverse
+
+```{r}
+#Required packages
+library(tidyverse)
+library(palmerpenguins)
+```
+### First lets bring in the data. Recall from last quarter the PalmerPengiun data set that we used to illustrate how to wrangle and organize your data. The Palmer Penguin data set is data derived from the Palmer LTER (Long term ecological research). For more information about the package you can follow this [link](https://pal.lternet.edu/). 
+### This worksheet is based off of Allison Horst's Dplyr tutorial wrangling penguins
+### Be sure to check out her work, she's an awesome teacher and coder here at UCSB![link](https://allisonhorst.shinyapps.io/dplyr-learnr/)
+```{r}
+penguins <- penguins #redundant but puts this variable in our environment
+```
+
+### Getting to know your data
+#### When first looking at your data there are some simple tricks to get to know it before we go about wrangling the specifics for analysis
+```{r}
+head(penguins) #Shows you the first 5 rows of your data
+
+names(penguins) #Gives you the names of the columns your working with
+
+unique(penguins$island) #Lets you know the unique entries in a column, useful for some characterstrings
+```
+
+### Back to the Basics
+```{r}
+#In base r, you can subset out your dataset using the []'s
+
+penguins[1,] #For example, denoting 1 prior to the comma inside [] allows you to subset for the first row of the data set
+
+penguins[,1] #If you put 1 after the comma inside [], this allows you to subset for the first column of the data set
+
+#You can also subset specifically for a column by using the '$' operator
+penguins$island
+
+#You can get fancy and subset for something specific within that column as well
+penguins$island[penguins$island == "Dream"] #little reminder that '==' tells r that you want an exact match. 
+```
+### Using Dplyr
+#### Subsetting and data wrangling in base r definetely has some merits that shouldn't be ignored (creating functions with base r is much more fool proof), however for dealing with data cleaning and organizing the tidyverse offers great packages that can really streamline your workflow. One of their best packages for this is Dplyr
+
+### Filter
+```{r}
+#Filter allows you to filter out a column by specified inputs
+
+penguins %>% #This is a piping operator, it is used in tidyverse to 'pipe' one line to the next
+  filter(island == "Dream") #This is similar to what we did in base r, but is easier to read.
+
+#You can also filter by multiple inputs
+chinstraps_w_short_bills <- penguins %>% filter(species == "Chinstrap", bill_length_mm <= 50) #the ',' here is telling the filter() that I want to filter by species AND bill length
+
+```
+### Challenge Question!
+#### Find a way to filter down the data set to include the species Adelie and Chinstrap
+#### Hint: the or operator '|' can be helpful here
+```{r}
+penguins %>% 
+  filter(species == "Adelie" | species == "Chinstrap")
+```
+
+### Mutate: create new columns based upon old ones
+```{r}
+#What if we wanted to change how the body mass units from grams to kilograms
+
+penguins1 <- penguins %>% 
+  mutate(body_mass_kg = body_mass_g/1000) #new column name = old column
+
+view(penguins1)
+
+```
+
+### ggplot
+#### Lets introduce ggploting 
+```{r}
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm)) +
+  geom_boxplot()
+
+#OR
+
+ggplot() +
+  geom_boxplot(data = penguins, aes(x = species, y = flipper_length_mm))
+```
+### Now lets combine dplyr with ggplot 
+#### Lets say that I am interested in understanding how the ratio of bill length to bill depth of the Adelie penguins differs among island populations. Lets use dplyr to wrangle our data and then ggplot to plot it. 
+```{r}
+penguins_adelie_ratio <- penguins %>% 
+  filter(species == "Adelie") %>% 
+  mutate(bill_ratio_mm = bill_length_mm/bill_depth_mm)
+
+ggplot(data = penguins_adelie_ratio, aes(x = island, y = bill_ratio_mm)) +
+  geom_boxplot()
+```
+### Challenge Question 2
+#### What if we're interested in seeing if theres a relationship between flipper length and the body mass of male chinstrap penguins? Visualize this using a scatter plot
+#### Hint: geom_point() can be used here for creating a scatterplot
+```{r}
+chinstraps <- penguins %>% 
+  filter(species == "Chinstrap") %>% 
+  filter(sex == "male")
+
+ggplot(chinstraps, aes(x = flipper_length_mm, y= body_mass_g)) +
+  geom_point() 
+```
+
+
+
