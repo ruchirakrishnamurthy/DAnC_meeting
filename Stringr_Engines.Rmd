@@ -1,0 +1,74 @@
+---
+title: "Stringr_Engines"
+author: "JT Miller"
+date: "2/9/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(stringr)
+```
+
+
+
+### Engines is stringr are used to describe patterns     
+
+#### Fixed matches: fixed(x) only matches exact sequences specified by x 
+```{r}
+a1 <- "\u00e1" #Single character with accent mark
+a2 <- "a\u0301" # creates "a" and then adds a accent mark to that 
+
+print(c(a1, a2)) # These look exactly identical 
+
+### But how can we tell if R knows that these are identical?
+
+a1 == a2 # Here R is telling us it doesn't think these values are equal, since we DEFINED them differently (remeber R will only do exactly what we say!)
+```
+### Using coll() to fix this, coll() is a collation search. 
+```{r}
+str_detect(a1, fixed(a2)) #Again, fixed matches return FALSE
+
+str_detect(a1, coll(a2)) # coll() tells r that these values are equivalent. 
+```
+
+
+```{r}
+a <- c("\u00e1", "A\u0301", "a\u0301", "a\u0302") # Store alternative forms of the same thing
+a
+
+# Using str_subset will only return case sensitive
+str_subset(a, coll("a\u0301"))
+
+#Adding ignore_case = TRUE will make it where it includes capitals and undercases.
+str_subset(a, coll("a\u0301", ignore_case = TRUE, locale = "fr"))
+
+
+
+```
+
+Boundary: boundary() matches boundaries between characters, lines, sentences, and words.
+```{r}
+x <- "This is a sentence."
+str_split(x, boundary("word")) #Splits up the string with whitespace by word
+
+str_count(x, boundary("word")) #Counts up the contents of the string by individual groups
+
+str_extract_all(x, boundary("word")) # Extracts the words from the string. 
+
+# "" is equivalent to boundary("character")
+str_split(x, "")
+str_split(x, boundary("character"))
+
+str_count(x, "")
+str_count(x, boundary("character"))
+
+```
+
+
+
+
+
