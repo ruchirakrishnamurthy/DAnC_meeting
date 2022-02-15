@@ -50,11 +50,15 @@ The key to the above exercises is below
 * Write a `for()` loop that (1) iterates over the numbers 1 to 10, (2) calculates the cube of each number and (3) saves the output in a storage vector. 
 ```{r}
 x1 <-  c(1:10)
-ex1 <- rep(NaN, length(x1))
+x1
+y1 <- rep(NaN, length(x1))
+y1
 
 for (i in 1:length(x1)){
-  ex1[i] <- x1[i]^3
+  y1[i] <- x1[i]^3
 }
+
+y1
 ```
 
 ## Exercise 2
@@ -62,11 +66,11 @@ for (i in 1:length(x1)){
 * Write a `for()` loop that (1) iterates over the numbers 1 to 10, (2) adds each variable to the variable that succeeds it in vector x (e.g., 1 + 2; 2 + 3; etc.) and (3) saves the output in a storage vector.
 ```{r}
 x2 <- c(1:10)
-ex2 <- rep(NaN, length(x2)-1)
+y2 <- rep(NaN, length(x2)-1)
 
 for(i in 1:length(x2)-1){
-  ex2[i]<- x2[i]+x2[i+1]
+  y2[i]<- x2[i]+x2[i+1]
 }
 
-ex2
+y2
 ```
