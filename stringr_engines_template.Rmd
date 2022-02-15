@@ -1,0 +1,54 @@
+---
+title: "Stringr_Engine_Template"
+author: "JT Miller"
+date: "2/9/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(stringr)
+```
+
+
+
+### Engines is stringr are used to describe patterns     
+
+#### Fixed matches: fixed(x) only matches exact sequences specified by x 
+```{r}
+a1 <- "\u00e1" #Single character with accent mark
+a2 <- "a\u0301" # creates "a" and then adds a accent mark to that 
+
+```
+### Using coll() to fix this, coll() is a collation search. 
+```{r}
+
+```
+
+
+```{r}
+a <- c("\u00e1", "A\u0301", "a\u0301", "a\u0302") # Store alternative forms of the same thing
+a
+
+
+
+
+```
+
+Boundary: boundary() matches boundaries between characters, lines, sentences, and words.
+```{r}
+x <- "This is a sentence."
+str_split(x, boundary("word")) #Splits up the string with whitespace by word
+
+
+
+
+```
+
+
+
+
+

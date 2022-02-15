@@ -1,0 +1,81 @@
+---
+title: "Stringr tutorial Characters + Whitespace Template"
+author: "Ruchira Krishnamurthy"
+date: "2/9/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# If you don't have stringr installed
+# install.packages("stringr")
+
+# Load stringr
+library(stringr)
+```
+
+# Getting and Setting Individual Characters 
+## str_length() returns the length of a string 
+What's your major?
+```{r}
+str_length()
+```
+
+
+# str_sub() allows you to access individual characters in a string
+Name three of your favorite movies that are 1 word
+### 3 arguments: str_sub(string, start, end)
+```{r}
+x <- c()
+
+# Return the 3rd character of each string in the character vector
+str_sub()
+```
+
+### You can also use str_sub() to modify strings
+```{r}
+# Replace the 3rd character of each string with "X"
+str_sub()<- "X"
+x
+```
+
+# Add Whitespace
+Use str_pad() "pads" a string to a fixed length by adding extra white space on left, right or both sides
+### Arguments: str_pad(string, width, side = c("left", "right", "both"))
+- Default str_pad() adds space to the left
+
+Name two of your favorite colors.
+```{r}
+y <- c()
+
+# Pad string to change width to be width of 10 
+str_pad()
+
+# Pad the string on both sides
+```
+
+
+# Remove Whitespace 
+Use str_trim() to remove leading and trailing white space 
+## Arguments: str_trim(string, side = c("both", "left", "right"))
+- Default str_trim() removes space from both sides
+```{r}
+z <- c("  a   ", "b   ",  "   c")
+
+# Trim whitespace on both sides
+str_trim()
+
+# Trim whitespace on only left side
+
+```
+
+
+
+
+
+
+
+
+
+
