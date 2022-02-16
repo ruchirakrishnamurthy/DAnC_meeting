@@ -17,9 +17,9 @@ Downloading packages
 ```{r}
 #First, download the necessary packages!
 #install the palmerpenguin dataset, there are two penguin data sets, the "raw" data set and a simplified version we will be using today
-install.packages("palmerpenguins")
+#install.packages("palmerpenguins")
 #also install tidyverse if you have not done so already!
-install.packages("tidyverse")
+#install.packages("tidyverse")
 
 ```
 
@@ -29,16 +29,24 @@ Calling packages
 #use the library function to tell R which packages you want to use in this markdown file!
 
 #the penguins data set is just called 'penguins' once you install it
-library(palmerpenguins)
+#library(palmerpenguins)
 
-library(tidyverse)
+#library(tidyverse)
 
 ```
+
+
+```{r}
+#type here for your code!
+```
+
+
 
 First, let's briefly visualize and talk about our data!
 
 ```{r}
 #use the View function to see your data in another tab
+View(penguins)
 
 
 #can also check out the other penguin data set!
@@ -53,6 +61,7 @@ First, the filter function!
 ```{r}
 #the general format of a function
 
+
 #function(argument)
 
 #Example of the filter function: filter by island - remember to specify your data set!
@@ -65,6 +74,8 @@ Pick a favorite penguin to filter by!
 ```{r}
 #filter by chosen penguin
 
+#FILTER BY CHINSTRAP
+
 
 ```
 
@@ -72,7 +83,9 @@ Ok, but what if I have TWO favorite penguins
 ```{r}
 #using the | operator
 
+
 #using the %in% operator
+
 
 ```
 
@@ -89,9 +102,9 @@ Now for our next function - mutate
 ```{r}
 #mutate allows you to create a new column that is a modification of an old one
 
+
+
 #for example, if you wanted a 'bill ratio' column, with bill ratio = bill length/bill depth
-
-
 
 
 
