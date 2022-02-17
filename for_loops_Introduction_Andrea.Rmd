@@ -1,0 +1,50 @@
+---
+title: "DANC - February 22, 2021"
+output: html_notebook
+---
+
+#### A. Why use the `for()` loop?
+Imagine trying to do an iterative process over a large dataset - 
+```{r}
+install.packages("vegan", dependences = TRUE) # install vegan package
+
+library(vegan) # call vegan package
+library(tidyverse)
+
+data(dune) # load dataset within the vegan package
+
+help("dune") # learn more about this data set
+# The dune meadow vegetation data, dune, has cover class values of 30 species (columns) on 20 sites (rows). 
+
+# Perhaps I want to know the abundance of each plant species across these sites: 
+sum(dune[, 1]) # the sum function "sums" our provided argument, which calls the first column of the dune dataset by indexing (using the brackets)
+
+## what if we wanted to sum the first row instead? how would that code change? 
+sum(dune[, 2])
+sum(dune[, 3])
+sum(dune[, 4])
+sum(dune[, 5])
+sum(dune[, 6])
+sum(dune[, 7])
+#remember there are 30 total columns... is this the most efficient way to do something? 
+
+#Now what would a for loop look like?
+
+ # a holding vector (we'll explain this date)
+holding.vector <- rep(NaN, ncol(dune))
+holding.vector
+#notice the curly brackets we talked about!
+for(i in 1:length(holding.vector)) { 
+  holding.vector[i] <- sum(dune[,i]) 
+  
+}
+#the for loop is much less code!
+ 
+```
+
+
+
+
+
+
+
