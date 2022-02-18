@@ -1,0 +1,261 @@
+---
+title: "for_loops_TEMPLATE"
+author: "JT Miller"
+date: "2/16/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#### A. Why use the `for()` loop?
+Imagine trying to do an iterative process over a large dataset - 
+```{r}
+install.packages("vegan", dependences = TRUE) # install vegan package
+
+library(vegan) # call vegan package
+library(tidyverse)
+
+data(dune) # load dataset within the vegan package
+
+help("dune") # learn more about this data set
+# The dune meadow vegetation data, dune, has cover class values of 30 species (columns) on 20 sites (rows). 
+
+# Perhaps I want to know the abundance of each plant species across these sites: 
+sum(dune[, 1]) # the sum function "sums" our provided argument, which calls the first column of the dune dataset by indexing (using the brackets)
+
+## what if we wanted to sum the first row instead? how would that code change? 
+sum(dune[, 2])
+sum(dune[, 3])
+sum(dune[, 4])
+sum(dune[, 5])
+sum(dune[, 6])
+sum(dune[, 7])
+#remember there are 30 total columns... is this the most efficient way to do something? 
+
+#Now what would a for loop look like?
+
+ # a holding vector (we'll explain this date)
+holding.vector <- rep(NaN, ncol(dune))
+holding.vector
+#notice the curly brackets we talked about!
+for(i in 1:length(holding.vector)) { 
+  holding.vector[i] <- sum(dune[,i]) 
+  
+}
+#the for loop is much less code!
+ 
+```
+
+#### B. Let's write a `for()` loop 
+
+* The basic structure of a for loop is: 
+
+for (variable in a collection of variables) {  
+expression(s)  
+}  
+
+Dr. Allison Horst's: awesome diagram that explains for loops
+https://twitter.com/allison_horst/status/1290774616038809600/photo/1
+
+For loops in three easy steps:
+
+1) What's your desired objective? For example, "I want to repeat the sum of all the columns in my data frame." This is your "for loop". 
+2) Where's your data? Usually this data is a vector (a string of things that are of the same kind, for example, a sequence of numbers: 1, 2, 3, 4)
+3) Where are you going to put your result? You'll need to make a "holding vector" or a place to put your answer. Usually this is an empty vector that is filled with NA or NaN placeholders. Any data generated within your loop will be not be saved, unless you use **variable assignment** within the loop. 
+
+* For example, if we wanted to add 7 to each element of the vector x, and store it in vector y, we could do it with a `for()` loop:
+```{r}
+# make a vector to iterate over
+
+# create an object y to hold the answer by repeating the number 0 into a vector of the same length as x (i.e., 9 slots)
+
+# for every number in the vector x, starting at the first variable in position 1 to the last variable in position 10
+  
+# add seven to it and store it in the vector y, our new values will overwrite y 
+
+# remember "i" refers to positions in a vector, NOT the number
+```
+
+* However, in R, we can do this much more efficiently using the <- command (because x is vectorized), so you don't need a `for()` loop for everything!
+```{r}
+
+```
+
+
+
+# Part C for loops continued  
+*'i' can be whatever you like, it just has to be consistent across the loop!
+```{r}
+
+```
+
+* Example using a logical statement --> with ifelse
+```{r}
+
+```
+
+* Back to our dune example, how would we write loop to find each plant species abundance across the 20 sampled sites?
+```{r}
+# Step 1: create a place to put our data
+holding.vector <-
+holding.vector
+
+# Step 2: write our for loop
+for() { # for element, i, from position 1 to the length of our holding vector
+  
+  ) # sum the i-th column in the dune dataset and place that answer in the holding vector in position i
+  
+}
+
+holding.vector
+
+sum(dune[, 1])
+sum(dune[, 2])
+sum(dune[, 3])
+sum(dune[, 4])
+sum(dune[, 5])
+
+# but remember, sometimes there's functions to do these things too
+
+
+```
+
+## Exercise 1
+* Write a `for()` loop that (1) iterates over the numbers 1 to 10, (2) calculates the cube of each number and (3) saves the output in a storage vector. 
+```{r}
+
+```
+
+## Exercise 2
+
+* Write a `for()` loop that (1) iterates over the numbers 1 to 10, (2) adds each variable to the variable that succeeds it in vector x (e.g., 1 + 2; 2 + 3; etc.) and (3) saves the output in a storage vector.
+```{r}
+
+```
+
+
+
+
+#### Exercise 4
+* Write a nested `for()` loop (i.e., a for loop inside another for loop) that 
+(1) creates a 30x30 matrix filled with NAs and
+(2) for each row and for each column, assign values based on the product of the two indices
+
+```{r}
+# Create a 30 x 30 matrix (of 30 rows and 30 columns)
+my.mat <- matrix(nrow = 30, ncol = 30)
+
+# For each row and for each column, assign values based on position: product of two indexes
+for(i in 1:dim(mymat)[1]) {
+  
+  for(j in 1:dim(mymat)[2]) {
+    
+    mymat[fill_in_here] = fill_in_here
+  
+  }
+  
+}
+
+# Just show the upper left 10x10 chunk
+my.mat[1:10, 1:10]
+```
+
+
+
+
+### Extras If we have time    
+```{r}
+### Applying Nested for-loops to models!!! 
+
+tset <- seq(from = 0, to = 60, length.out = 20000)
+N <- 100
+I0 <- 1     
+
+# Initial number of suseptible individuals
+# Total population - infected
+S0 <- N - I0    
+
+# Intial number of reccovered individuals
+R0 <- 0     
+# Holding vector for the total population size
+N.simu3 <- NaN*tset
+N.simu3[1] <- N
+
+# Holding vector for infected individuals
+I.simu3 <- NaN*tset
+I.simu3[1] <- I0
+
+# Holding vector for suseptible individuals
+S.simu3 <- NaN*tset
+S.simu3[1] <- S0
+
+# Holding vector for recovered individuals
+R.simu3 <- NaN*tset
+R.simu3[1] <- 0
+
+#####################################################
+
+vector_color <- c("white","black", "blue", "green", "red", "steelblue")
+
+vector_values <- c("Beta, Gamma" ," ", " ", " ", " ", " ")
+
+### Trying to nest the for loop()
+plot(x = 1, y = 1, 
+      type = 'n', lwd = 2, las = 1,
+     xlim = c(0,75),
+     ylim = c(0,120),
+     xlab = 'Time', ylab = 'Incidence')
+
+
+for(j in 2:6){
+
+mutations_B <- runif(1, min = 0.01, max = 0.05)
+
+neutral_percent_B <- runif(1, min = 0.00, max = 1)
+### Theoretically applying a percent might be better
+
+mutations_G <- runif(1, min = 0.1, max = 0.5)
+neutral_percent_G <- runif(1, min = 0.00, max = 1)
+
+X <- mutations_B[1] - mutations_B[1] * neutral_percent_B[1]
+Y <- mutations_G[1] - mutations_G[1] * neutral_percent_G[1]
+XY <- paste(round(X,3),round(Y,3), sep = ",")
+
+vector_values[j] <- XY
+
+for(i in 2:length(tset)){
+    dt <- tset[i]-tset[i-1]
+    
+    # create place holder variables
+    S <- S.simu3[i-1]
+    I <- I.simu3[i-1]
+    R <- R.simu3[i-1]
+    
+    # calc change in group size per time step
+    dS <- (-X*S*I)*dt
+    dI <- (X*S*I-Y*I)*dt
+    dR <- (Y*I)*dt
+    dN <- dS+dI+dR  
+    
+    # calc total group size and store in the holding vector
+    S.simu3[i] <- S + dS
+    I.simu3[i] <- I + dI
+    R.simu3[i] <- R + dR
+    N.simu3[i] <- N + dN
+
+  
+    } # End of the for loop()
+
+lines(x=tset, y = I.simu3, col = vector_color[j], lwd = 2)  
+} # End of the for loop()
+
+legend(x = 40, y= 120, 
+       lwd = 2,
+       legend = vector_values,
+       col = vector_color)
+
+```
+
