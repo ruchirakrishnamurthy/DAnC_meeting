@@ -1,0 +1,77 @@
+---
+title: "Allison Horst Looping Over Columns and Rows"
+author: "Joe Celebrezze"
+date: "2/24/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is all from:
+https://allisonhorst.github.io/danc_loops/#
+
+Made by the wonderful Allison Horst
+https://www.allisonhorst.com/
+
+# Necessary Packages
+```{r}
+library(palmerpenguins)
+library(tidyverse)
+View(Loblolly)
+```
+
+# ACROSS FUNCTION
+
+## Introduction to "Across": Getting Means
+```{r}
+mean(penguins$bill_length_mm)
+
+#What if we wanted to know TWO means GROUPED BY SPECIES?
+penguins %>% 
+  group_by(species) %>%
+  summarize(mean.bill.length = mean(bill_length_mm, na.rm = TRUE),
+            mean.bill.depth = mean(bill_depth_mm, na.rm = TRUE))
+```
+But, what if we wanted to know A LOT of means?
+Use across to apply a function to many columns
+  The default of across is to apply to ALL of the columns
+
+## Example 1 - Across Function
+```{r}
+penguins.chr <- penguins %>% 
+  mutate(across(.cols = everything(), # .cols = everything() is default
+                as.character)) #function you want to apply
+
+glimpse(penguins.chr) #taking a look at our new dataset
+```
+
+## Example 2 - Across Function, but Where?
+```{r}
+penguins %>% 
+  mutate(across(.cols = where(is.factor), # Now, we only want to convert columns with factors
+                tolower)) #function you want to apply
+```
+
+## Example 3 - Across Function, with Summarize, with helper functions
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(ends_with("mm"), # We only want to apply to columns that end with 'mm'
+                   mean, na.rm = TRUE)) # Function(s) we want to apply
+```
+
+# ROWWISE FUNCTION
+
+## Example 5 (in handout) - Rowwise Function, Calculating a sum of all <dbl> columns by row
+```{r}
+penguins_ex5 <- penguins %>% 
+  rowwise() %>%  # Applied by ROW
+  mutate(sum_bill = sum(across(where(is.double)))) # Using Across()
+
+glimpse(penguins_ex5)
+```
+
+
+
