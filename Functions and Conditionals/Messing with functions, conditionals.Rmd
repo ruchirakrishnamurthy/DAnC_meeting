@@ -1,0 +1,87 @@
+---
+title: "Messing with functions, if else, for loops"
+author: "Joe Celebrezze"
+date: "2/28/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Necessary packages
+```{r}
+library(tidyverse)
+```
+
+# Checking out the dataset
+```{r}
+trees
+
+ggplot(data = trees, aes(x = Volume, y = Height, color = Girth)) +
+  geom_point()# So for the most part, the three measured variables are pretty related to one another
+```
+
+# Predicting the height of the trees based on girth and volume
+```{r}
+height.model <- lm(data = trees, Height ~ Girth + Volume)
+summary(height.model)
+
+height.predict <- cbind(trees, predict(height.model))
+trees$Predicted.Height <- height.predict$`predict(height.model)`
+
+predict.height <- function(girth, volume) {
+  Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume)
+  return(Predicted.Height)
+}
+
+predict.height(girth = 8.3, volume = 10.3)
+```
+
+Now, using if else statements in the function
+```{r}
+predict.height <- function(girth, volume, units = "feet") {
+  Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume)
+  if (units == "inches"){
+    return(Predicted.Height*12)
+  }
+  else if (units == "m"){
+    return(Predicted.Height*0.3048)
+  }
+  else if (units == "cm") {
+    return(Predicted.Height*30.48)
+  }
+  else{
+    return(Predicted.Height)
+  }
+}
+
+predict.height(8.3, 10.3, units = "m")
+
+#Check our work!
+predict.height(8.3, 10.3) * 0.3048
+```
+
+What if we didn't have either the girth or the volume?
+```{r}
+# predict.height(girth = 8.3)
+
+predict.height2 <- function(girth, volume, units = "feet") {
+  Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume)
+  if (units == "inches"){
+    return(Predicted.Height*12)
+  }
+  else if (units == "m"){
+    return(Predicted.Height*0.3048)
+  }
+  else if (units == "cm") {
+    return(Predicted.Height*30.48)
+  }
+  else{
+    return(Predicted.Height)
+  }
+}
+
+
+```
+
