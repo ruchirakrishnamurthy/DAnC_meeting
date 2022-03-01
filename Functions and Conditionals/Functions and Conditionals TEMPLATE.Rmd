@@ -1,5 +1,5 @@
 ---
-title: "Functions and Conditionals KEY"
+title: "Functions and Conditionals TEMPLATE"
 author: "DAnC Team"
 date: "3/1/2022"
 output: html_document
@@ -19,7 +19,7 @@ library(tidyverse)
 
 # Conditionals in For Loops (Ruchira)
 
-# Defining Functions (Stella) 
+# Defining Functions (Stella)
 
 # Functions Cont. (Andrea)
 
@@ -57,56 +57,29 @@ Okay! Now, we are finally ready to make a function to predict the height using t
 
 ## Function with Girth and Volume Predicting Height
 ```{r}
-predict.height <- function(girth, volume) {
-  Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume) # We get these values from the summary(height.model) above!
-  return(Predicted.Height)
-}
 
-predict.height(girth = 8.3, volume = 10.3)
-
-# To check out how our function did
-trees
 ```
 
 So, that function did pretty good, but I think we could add some cool things to it. What if we wanted the predicted height to be an output of inches, meters or cm instead of feet?
 
 ## Function Involving Conditionals -- Units!
 ```{r}
-predict.height <- function(girth, volume, units = "feet") # units = "feet" in the parentheses of the funtion sets feet as the default (if you do not specify any units, it will return in feet)
-  { 
-  Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume)
-  if (units == "in"){
-    return(Predicted.Height*12) # Alter the predicted height based on the conversion factors for the units
-  }
-  else if (units == "m"){
-    return(Predicted.Height*0.3048)
-  }
-  else if (units == "cm") {
-    return(Predicted.Height*30.48)
-  }
-  else{
-    return(Predicted.Height)
-  }
-}
 
-predict.height(8.3, 10.3, units = "m")
+# Check our work!
 
-#Check our work!
-predict.height(8.3, 10.3) * 0.3048 # See, here we do not specify units, but the output would be in feet because we specified feet as the default
 ```
 
-One slight issue...
+One slight issue though...
 ```{r}
-predict.height(8.3, 10.3, units = "meters")
+
 ```
-This will return the height in FEET because of how our function is structured. Think about it like this: if units are "in" then this, if units are "m" then this, if units are "cm" then this, in ANY OTHER CASE return this... Instead, we would probably want to use an else if statement for the feet and then use else to return an error so that if the user of the function (us) put in "meters" instead of "m" it would return an error letting us know that we did something wrong.
+
 
 Nice, this function is becoming a bit more complex, but what if we wanted to predict height, but we could only measure either girth OR volume and we could not measure both?
 
 Let's try it out
 ```{r}
-# predict.height(girth = 8.3)
-# our function does not like this... error pops up!
+
 ```
 
 Clearly we need to alter our function. Conditionals could help with this too!
@@ -122,31 +95,7 @@ summary(height.model.no.volume)
 
 ## Function Using Conditionals Part 2 -- More Models!
 ```{r}
-predict.height <- function(girth, volume, units = "feet") {
-  if(girth == "no"){
-    Predicted.Height <- 69.00336 + (0.2319*volume)
-  }
-  else if(volume == "no") {
-    Predicted.Height <- 62.0313 + (1.0544*girth)
-  }
-  else{
-    Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume)
-  }
-  if (units == "inches"){
-    return(Predicted.Height*12)
-  }
-  else if (units == "m"){
-    return(Predicted.Height*0.3048)
-  }
-  else if (units == "cm") {
-    return(Predicted.Height*30.48)
-  }
-  else{
-    return(Predicted.Height)
-  }
-}
 
-predict.height(girth = "no", 20)
-predict.height(20, girth = "no") # if you define one of the variables (and units is the default in this case, then it does not matter which order you place the variables)
+# Check our work
+
 ```
-
