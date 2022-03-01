@@ -65,9 +65,26 @@ predict.height(8.3, 10.3) * 0.3048
 What if we didn't have either the girth or the volume?
 ```{r}
 # predict.height(girth = 8.3)
+# our function does not like this...
 
+height.model.no.girth <- lm(data = trees, Height ~ Volume)
+summary(height.model.no.girth)
+
+height.model.no.volume <- lm(data = trees, Height ~ Girth)
+summary(height.model.no.volume)
+```
+
+```{r}
 predict.height2 <- function(girth, volume, units = "feet") {
-  Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume)
+  if(girth == "no"){
+    Predicted.Height <- 69.00336 + (0.2319*volume)
+  }
+  else if(volume == "no") {
+    Predicted.Height <- 62.0313 + (1.0544*girth)
+  }
+  else{
+    Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume)
+  }
   if (units == "inches"){
     return(Predicted.Height*12)
   }
@@ -82,6 +99,7 @@ predict.height2 <- function(girth, volume, units = "feet") {
   }
 }
 
-
+predict.height2(girth = "no", 20)
+predict.height2(20, girth = "no") # if you define one of the variables (and units is the default in this case, then it does not matter which order you place the variables)
 ```
 
