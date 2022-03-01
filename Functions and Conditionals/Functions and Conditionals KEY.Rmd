@@ -1,0 +1,146 @@
+---
+title: "Functions and Conditionals KEY"
+author: "Joe Celebrezze"
+date: "3/1/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Necessary Packages
+```{r}
+#install.packages("tidyverse")
+library(tidyverse)
+```
+
+# Introduction to Conditionals (JT)
+
+# Conditionals in For Loops (Ruchira)
+
+# Defining Functions (Stella)
+
+# Functions Cont. (Andrea)
+
+# Bringing it all together (Joe)
+
+Working off of the 'trees' dataset, what if we wanted to write a function to try and predict one of the variables (for example the height of the trees) using other variables?
+
+Well, first we would have to decide *how* we want to predict the height of the trees. For the sake of ease, lets use a linear model and first try and predict the height of the trees using both the girth (diameter) and the volume of the trees.
+
+Before we do anything else, it is always good practice to look at the dataset we are working with and do a quick exploratory visualization.
+
+## Data Exploration
+```{r}
+trees
+
+ggplot(trees, aes(x = Volume, y = Height, color = Girth)) + # Note: R is case-sensitive
+  geom_point() + # For a scatterplot
+  geom_smooth(se = FALSE, method = "lm", color = 'black') # Overlaying a linear model without the standard error bar (and specifying the color to black)
+```
+
+From the above data visualization, we see that the height is at least somewhat related to the girth and the volume of the tree, so using those to predict tree height is not completely out-of-the-question. If you were doing this for research purposes, you would do some more statistics; however, we are just doing this to learn about functions and conditionals.
+
+But, we are not quite to the point of functions and conditionals yet... First, we need to make a linear model.
+
+## Linear Model (and adding predicted height to our dataset)
+```{r}
+height.model <- lm(data = trees, Height ~ Girth + Volume) # This is one way to make a linear model where you specify the dataset, and then specify your explanatory variables (girth and volume) and your response variable (height)
+summary(height.model) # This summarizes that linear model; WE WILL USE THIS LATER
+
+height.predict <- cbind(trees, predict(height.model)) # To get predicted values of height from the linear model
+trees$Predicted.Height <- height.predict$`predict(height.model)` # To add those predicted values to our dataset
+```
+
+Okay! Now, we are finally ready to make a function to predict the height using the girth and the volume
+
+## Function with Girth and Volume Predicting Height
+```{r}
+predict.height <- function(girth, volume) {
+  Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume) # We get these values from the summary(height.model) above!
+  return(Predicted.Height)
+}
+
+predict.height(girth = 8.3, volume = 10.3)
+
+# To check out how our function did
+trees
+```
+
+So, that function did pretty good, but I think we could add some cool things to it. What if we wanted the predicted height to be an output of inches, meters or cm instead of feet?
+
+## Function Involving Conditionals -- Units!
+```{r}
+predict.height <- function(girth, volume, units = "feet") # units = "feet" in the parentheses of the funtion sets feet as the default (if you do not specify any units, it will return in feet)
+  { 
+  Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume)
+  if (units == "in"){
+    return(Predicted.Height*12) # Alter the predicted height based on the conversion factors for the units
+  }
+  else if (units == "m"){
+    return(Predicted.Height*0.3048)
+  }
+  else if (units == "cm") {
+    return(Predicted.Height*30.48)
+  }
+  else{
+    return(Predicted.Height)
+  }
+}
+
+predict.height(8.3, 10.3, units = "m")
+
+#Check our work!
+predict.height(8.3, 10.3) * 0.3048 # See, here we do not specify units, but the output would be in feet because we specified feet as the default
+```
+
+Nice, this function is becoming a bit more complex, but what if we wanted to predict height, but we could only measure either girth OR volume and we could not measure both?
+
+Let's try it out
+```{r}
+# predict.height(girth = 8.3)
+# our function does not like this... error pops up!
+```
+
+Clearly we need to alter our function. Conditionals could help with this too!
+
+First, we need to make some new linear models that do not rely on either the girth or the volume (one model using only volume as an explanatory variable and one using only girth as an explanatory variable).
+```{r}
+height.model.no.girth <- lm(data = trees, Height ~ Volume)
+summary(height.model.no.girth)
+
+height.model.no.volume <- lm(data = trees, Height ~ Girth)
+summary(height.model.no.volume)
+```
+
+## Function Using Conditionals Part 2 -- More Models!
+```{r}
+predict.height <- function(girth, volume, units = "feet") {
+  if(girth == "no"){
+    Predicted.Height <- 69.00336 + (0.2319*volume)
+  }
+  else if(volume == "no") {
+    Predicted.Height <- 62.0313 + (1.0544*girth)
+  }
+  else{
+    Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume)
+  }
+  if (units == "inches"){
+    return(Predicted.Height*12)
+  }
+  else if (units == "m"){
+    return(Predicted.Height*0.3048)
+  }
+  else if (units == "cm") {
+    return(Predicted.Height*30.48)
+  }
+  else{
+    return(Predicted.Height)
+  }
+}
+
+predict.height2(girth = "no", 20)
+predict.height2(20, girth = "no") # if you define one of the variables (and units is the default in this case, then it does not matter which order you place the variables)
+```
+

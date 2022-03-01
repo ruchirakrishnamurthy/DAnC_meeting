@@ -42,7 +42,7 @@ Now, using if else statements in the function
 ```{r}
 predict.height <- function(girth, volume, units = "feet") {
   Predicted.Height <- 83.2958 - (1.8615*girth) + (0.5756*volume)
-  if (units == "inches"){
+  if (units == "in"){
     return(Predicted.Height*12)
   }
   else if (units == "m"){
@@ -75,7 +75,7 @@ summary(height.model.no.volume)
 ```
 
 ```{r}
-predict.height2 <- function(girth, volume, units = "feet") {
+predict.height <- function(girth, volume, units = "feet") {
   if(girth == "no"){
     Predicted.Height <- 69.00336 + (0.2319*volume)
   }
