@@ -40,9 +40,10 @@ Let's create a function to calculate the volume of a cylinder:
 #for everyone who has forgotten middle school math:
 #pi*radius^2*height
 
-cylinder_volume <- function( , )
+cylinder_volume <- function( , ) {
   volume <- 
   return(volume)
+}
 ```
 
 

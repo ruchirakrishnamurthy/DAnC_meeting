@@ -19,9 +19,37 @@ library(tidyverse)
 
 # Conditionals in For Loops (Ruchira)
 
-# Defining Functions (Stella) 
+# Defining and Practicing Functions (Andrea)
 
-# Functions Cont. (Andrea)
+Today we will be going over how to create your own functions in R!
+
+Our first example here is a function to convert Fahrenheit to Celsius
+```{r}
+#Let's take a look at the parts of the function 
+fahrenheit_to_celsius <- function(temp_F) {
+  temp_C <- (temp_F - 32) * 5 / 9
+  return(temp_C)
+}
+
+#What is the temperature today?
+fahrenheit_to_celsius()
+```
+
+Let's create a function to calculate the volume of a cylinder:
+
+```{r}
+#for everyone who has forgotten middle school math:
+#pi*radius^2*height
+
+cylinder_volume <- function(r,h) {
+  volume <- pi*r^2*h
+  return(volume)
+}
+#in this answer, we use r as the radius and h as the height
+
+cylinder_volume(5,6)
+```
+
 
 # Bringing it all together (Joe)
 
