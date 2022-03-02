@@ -45,6 +45,24 @@ cylinder_volume <- function( , ) {
   return(volume)
 }
 ```
+Setting a default 
+```{r}
+#What happens when we run the function with only one number?
+cylinder_volume()
+
+#How do we set a default?
+
+```
+
+Now let's create a new function from scratch!
+
+Our "star sign" generator
+
+```{r}
+
+```
+
+
 
 
 # Bringing it all together (Joe)

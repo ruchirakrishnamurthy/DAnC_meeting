@@ -48,6 +48,46 @@ cylinder_volume <- function(r,h) {
 #in this answer, we use r as the radius and h as the height
 
 cylinder_volume(5,6)
+
+
+```
+
+Setting a default 
+
+```{r}
+#What if you wanted to set your cylinder volume function to have a default of 1?
+
+cylinder_volume2 <- function(r, h=1) {
+  volume <- pi*r^2*h
+  return(volume)
+}
+
+cylinder_volume2(3)
+
+#even though there was no input for the height the function works because a default of 1 is set 
+
+```
+
+
+Make your own star sign generator!
+
+```{r}
+#for this example you will put in your birth month and get your star sign
+
+
+
+```
+
+
+
+Now, let's apply this to our tree dataset!
+```{r}
+#View(trees) #a quick visual of our dataset
+library(dplyr)
+
+
+
+
 ```
 
 
