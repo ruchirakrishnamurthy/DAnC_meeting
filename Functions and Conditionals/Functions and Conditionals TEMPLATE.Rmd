@@ -17,6 +17,59 @@ library(tidyverse)
 
 # Introduction to Conditionals (JT)
 
+Conditionals 
+
+In R, we can create what are called conditional statements. These conditional statements control our output based upon how we set it up. This is a good way to have program the computer to make choices for us based upon the data we give it. 
+```{r}
+x <- 5 # Assign the integer 5 to the variable 'x'
+
+# Is x less than 10?
+
+
+
+# Is x more than 6?
+
+
+
+```
+Here, you can notice that R will make decisions via logical outputs for us based upon the variable inputs.
+
+Using these logical outputs, we can create what are called 'conditional statements' to have R compare data.
+```{r}
+x <- 5
+
+
+
+
+
+```
+You may also forgo an else statement if you wanted R not to print any result in the case that your condition isn't satisfied 
+```{r}
+
+```
+
+Some more advanced comparisons 
+
+we can use the '&&' to symbolize that our condition is only true if BOTH parts are true
+```{r}
+x <- 5
+
+
+#############################################################
+
+
+```
+We can also use the operator '||' to symbolize that only one of the conditions needs to be met to satisfy the conditional. 
+
+```{r}
+x <- 5 
+
+
+```
+
+
+
+
 # Conditionals in For Loops (Ruchira)
 Lets implement both for loops and conditionals in an example!
 As a reminder:

@@ -21,6 +21,93 @@ library(tidyverse)
 
 # Defining and Practicing Functions (Andrea)
 
+
+Conditionals 
+
+In R, we can create what are called conditional statements. These conditional statements control our output based upon how we set it up. This is a good way to have program the computer to make choices for us based upon the data we give it. 
+```{r}
+x <- 5 # Assign the integer 5 to the variable 'x'
+
+# Is x less than 10?
+
+x < 10
+
+# Is x more than 6?
+
+x > 6
+
+```
+Here, you can notice that R will make decisions via logical outputs for us based upon the variable inputs.
+
+Using these logical outputs, we can create what are called 'conditional statements' to have R compare data.
+```{r}
+x <- 5
+
+if (x > 10) { # IF: set up the how you would like R to evaluate
+  print("greater than 10") # If the above is TRUE, give this output
+} else{
+  print("less than 10") # ELSE   the above is FALSE, give this output instead
+}
+
+
+# SO what if we change x and run the same code?
+
+x <- 20
+
+if (x > 10) { # IF: set up the how you would like R to evaluate
+  print("greater than 10") # If the above is TRUE, give this output
+} else{
+  print("less than 10") # ELSE   the above is FALSE, give this output instead
+}
+```
+You may also forgo an else statement if you wanted R not to print any result in the case that your condition isn't satisfied 
+```{r}
+x <- 5
+
+if(x > 10) {
+  print("greater than 10")
+}
+
+# Notice that there is no output, no 'else' statement just tells R to stop
+```
+
+Some more advanced comparisons 
+
+we can use the '&&' to symbolize that our condition is only true if BOTH parts are true
+```{r}
+x <- 5
+
+if(x >= 5 && x < 10){
+  print("Our conditions are satisfied")
+} else{
+  print("Unsatisfied")
+}
+
+
+#############################################################
+
+if(x > 5 && x < 10){
+  print("Our conditions are satisfied")
+} else{
+  print("Unsatisfied")
+}
+
+```
+We can also use the operator '||' to symbolize that only one of the conditions needs to be met to satisfy the conditional. 
+
+```{r}
+x <- 5 
+
+if(x < 6 || x > 100){
+  print("At least one condition is satisfied")
+} else 
+  print("Neither condition is satisfied")
+```
+
+
+
+
+
 Today we will be going over how to create your own functions in R!
 
 Our first example here is a function to convert Fahrenheit to Celsius
