@@ -98,7 +98,7 @@ cylinder_volume()
 
 Now let's create a new function from scratch!
 
-Our "star sign" generator
+Our zodiac sign generator
 
 ```{r}
 

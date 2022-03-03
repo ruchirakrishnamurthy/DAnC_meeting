@@ -18,58 +18,6 @@ library(tidyverse)
 # Introduction to Conditionals (JT)
 
 # Conditionals in For Loops (Ruchira)
-Lets implement both for loops and conditionals in an example!
-As a reminder:
-* The basic structure of a for loop is: 
-
-for (variable in a collection of variables) {  
-expression(s)  
-}  
-
-Let's look at an example:
-```{r}
-# Let's create a dataset 
-dataset <- data.frame(A = c(1:10), B= c(11:20))
-
-# View dataset
-dataset
-```
-
-Let's create a new column called C that will return "yes" or "no" depending on if the values of column B are greater than 15 (value "yes") or not (value "no"). 
-```{r}
-for(i in 1:length(dataset$B)){
-  if(dataset$B[i]>15){
-    dataset$C[i]<- "yes"
-  }
-  else{
-    dataset$C[i] <- "no"
-  }
-}
-
-dataset
-```
-
-Next let's look at a dataset from the "dataset" package called trees
-```{r}                            
-# Let's view a portion of our dataset first.
-trees_data <- trees
-head(trees_data)
-```
-
-
-Exercise:
-Look through the height column of trees_data, and if the tree is larger than 73 inches, assign the value "tall" to a new column "Description", else assing the value "short" in the column "Description". View trees_data after to check that your code has worked. 
-
-```{r}
-for(i in 1:length(trees_data$Height)){
-  if(trees_data$Height[i]> 73){
-    trees_data$Description[i]<- "tall"}
-  else{
-    trees_data$Description[i]<- "short"}
-}
-
-trees_data
-```
 
 # Defining and Practicing Functions (Andrea)
 
@@ -121,23 +69,20 @@ cylinder_volume2(3)
 ```
 
 
-Make your own star sign generator!
+Make your own zodiac sign generator!
 
 ```{r}
-#for this example you will put in your birth month and get your star sign
+#for this example you will put in your birth year and get your zodiac animal
 
+zodiac_sign <- function(year) {
+  x <- year %% 12
+  
+  animals <- c("rat", "ox", "tiger", "rabbit", "dragon", "snake", "horse", "goat", "monkey", "rooster", "dog", "pig")
+  
+ return(animals[x-3])
+}
 
-
-```
-
-
-
-Now, let's apply this to our tree dataset!
-```{r}
-#View(trees) #a quick visual of our dataset
-library(dplyr)
-
-
+zodiac_sign(1999)
 
 
 ```
