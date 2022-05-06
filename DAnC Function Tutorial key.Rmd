@@ -1,0 +1,352 @@
+---
+title: "DAnC Functions Tutorial"
+author: "Jakob Kaare-Rasmussen"
+date: "3/9/2022"
+output: html_document
+---
+
+# **What is a function?**
+
+A function is a reusable group of instructions that takes some arguments, does computations with them, or manipulates them in some way and then returns an output. Functions in programming are very similar to functions in mathematics. Think back to middle school in high-school. We all learned the equation of a line as $f(x)=mx+b$. This is a function that takes an input ($x$) and returns an output ($mx+b$).
+
+We have already use a *lot* of functions in this class. For example, the length function.
+
+```{r}
+x<-1:10 #define x as a list of ten numbers
+length(x) #how long is x? 
+```
+
+Here length is a function that has an input (often called arguments) and an output. This function takes the vector x, and then counts the number of elements in x and then returns that number.
+
+Next lets try the sum function.
+
+```{r}
+sum(4,5) #use the function sum() to add 4 and 5
+```
+
+Here, the function sum() has 2 inputs (4 and 5 in this case), but only 1 output, which is the sum of the two inputs.
+
+Now lets try to make our own function.
+
+## **Make a Function**
+
+Lets start with the basic structure of a function.
+
+```{r}
+function_name<-function(argument_a, argument_b,...){ #name the function function_name with 2 possible inputs (argument_a, argument_b)
+  #This is the 'meat' of the function.
+  #Here is where you use argument_a and argument_b.
+  #Within the function you can call argument_a and argument_b, becasue they are locally defined. That means they are defined only within the function, not outside of the function. 
+  return(output)#What do we want to get out of this function?
+}
+```
+
+Can we make our own function to sum 2 numbers?
+
+```{r}
+sumfun<-function(n,m){# Name the function sumfun, and then define the function with 2 inputs, n and m
+  a=n+m #calculations of the function (sum n and m)
+  return(a) #return the sum of n and m
+}
+#Test:
+sumfun(1,2) #2 arguments (1, 2) with the sum as an output. 
+sumfun(100233,123415) #2 arguments (100233,123415) with the sum as an output.
+sumfun(1,2,3) #It can only add 2 inputs
+```
+
+Try it: Make a function that takes the difference of 2 numbers:
+
+```{r}
+diffun<-function(n,m){# Name the function sumfun, and then define the function with 2 inputs, n and m
+  a=n-m #calculations of the function (sum n and m)
+  return(a) #return the sum of n and m
+}
+#Test:
+diffun(1,2) #2 arguments (1, 2) with the sum as an output. 
+diffun(100233,123415) #2 arguments (100233,123415) with the sum as an output.
+diffun(1,2,3) #It can only add 2 inputs
+```
+
+This function can only ever take 2 inputs. What if we want to add a varying amount of numbers with the same function?
+
+```{r}
+sumfun_v<-function(...){# ... allows the function to take any number of inputs
+  v=c(...)#make a vector out of inputs
+  s=0 #define starting condition of sum (0)
+  for(i in 1:length(v)){ #a for loop that adds all the inputs up regardless of the number of inputs
+    s=s+v[i]}
+  return(s)#return sum
+}
+sumfun_v(9,4,6,8,1) #add all the numbers
+x<-c(1,4,6,7,3,9,1003) #vector of numbers to sum
+sumfun_v(x,1,2,3) #even works when an input is a vector
+```
+
+Try it: Make a function that takes the mean of a list of data (without using the mean or sum function).
+
+```{r}
+meanfun=function(...){
+  v=c(...)
+  m=0
+  s=0
+  for(i in 1:length(v)){ #a for loop that adds all the inputs up regardless of the number of inputs
+    s=s+v[i]}
+  m=s/length(v)
+return(m)  
+}
+meanfun(1,2,3)
+meanfun(1,2,x)
+```
+
+## **Locally vs. Globally Defined**
+
+Locally defined variables can only be accessed within a function where it is defined, and not the remainder of a code.
+
+Globally defined variables can be accessed anywhere within a code (once it has been defined).
+
+```{r}
+test<-function(a,b){ #locally defining a and b
+  w=b*a+n #what is n? It has not been locally defined
+  return(c(w,a)) #retunr both w and a
+}
+#test(1,2) #here we are locally defining a = 1 and b = 2
+#Doesn't work! The function doesnt know what n is because it hasnt been locally or globally defined
+#a #outside of the function a is not defined
+n=1 #Globally defining n. Once defined n is defined everywhere. 
+test(1,2) #now it knows what n is, as it is globally defined
+#a #outside of the function a is not defined
+n #outside of the function n IS defined
+a=5 #Globally define a. 
+test(1,2) #Will the function use a = 5 (global) or a = 1 (local)
+#the function will override the global definition of the varable for the local definition
+a
+```
+
+## **Multiple Outputs**
+
+What if we want more than one output?
+
+Functions can only ever give one output (Why? Because functions in programming are based off of mathematical functions. In mathematics a well defined function must have only one output corresponding to each input). But we can get around that.
+
+Mini-example: We know that if $f(0)=1$ and $f(0)=2$ then $f(x)$ is no a function. One input maps to two separate outputs. But what if we want both the 1 and the 2? Here is an example of how that might look:
+
+$$
+f(x)=(x+1,x+2)\\
+f(0)=(1,2)
+$$
+
+Notice our trick! We have just combined the two elements to be one list of 2 numbers, and the function $f(x)$ is still a function.
+
+Lets write a function that gives the sum of two numbers and the product of the two numbers.
+
+$$
+f(x,y)=(x+y,xy)
+$$
+
+```{r}
+sp<-function(n,m){#name the function sp (for sum product), and then define the function with 2 inputs, n and m
+  #Note that within the function the variable n and m are locally defined 
+  s=n+m #s is the sum of n and m
+  p=n*m #p is the product of n and m
+  #return(both)#Now it will return both the sum and product as a list
+  return(list(s=s,p=p)) #another way to combine results
+}
+#Test:
+sp(3,2)#The first output is the sum and the second is the product!
+#Want them separately? Indexing
+out=sp(3,2) 
+out$s #results can be called with the $ operator
+sp(3,2)[[2]] #Or results can be called with indexing. 
+```
+
+Great! Now we know how to write a function, and make a function have more than one input.
+
+But why?
+
+"If you are copying and pasting a lot you are doing it wrong" - Jonatan Kaare-Rasmussen
+
+JT Miller's General rule: If you are copying and pasting something more than 2 or 3 times, make a function.
+
+# Anyone Have a function idea?
+
+```{r}
+
+```
+
+# **Application: DIY Combine Files Function**
+
+```{r}
+comb=function(l,f){#number of files,filename (without .xlsx and number)
+  tester=as.data.frame(read_excel(paste(f,1,".xlsx",sep=""))) #test file import
+  c=dim(tester)[2]+1 #find dimensions (number of columns) + 1
+  data=data.frame(d=1:l) #build exportable data set 
+  for(i in 2:c){# add the right number of columns to that data set
+  data[,i]=NA*1:l #add un filled columns
+  }
+  names(data)[2:c]=names(tester) # correct the column names
+  for(i in 1:l){ #add the data
+    data[i,2:c]=read_excel(paste(f,i,".xlsx",sep="")) #import each row and add it to exportable data
+  }
+  return(data) #return export data
+}
+write_xlsx(comb(3,"dat"),"out.xlsx")
+```
+
+# **Application: Solve ODE**
+
+## **Part 1: Simple One Organism ODE**
+
+Lets start with a very simple example, logistic growth. Lets use the following ODE:
+
+$$
+\frac{dN}{dt}=rN(1-\frac{N}{K})
+$$
+
+Where $N$ is the population of an organism, $r$ is the growth rate, and $K$ is the the carrying capacity. Lets make a function where we can model this, with the parameters, $K$,and $r$ as inputs of the function.
+
+$$
+f(K,r,t)=(t,N(t))
+$$
+
+```{r}
+logistic<-function(K=100,r,tset){ #define the function with inputs K and r
+  #notice the parameter K is set to 100. K will now be locally defined as 100, unless othewise specified. 
+#now we can write the for loop simulation exactly the same as it would be outside of a function
+  N.simu<-NA*tset #Define empty vector N.simu
+  N.simu[1]=1 #Starting population
+  for(i in 2:length(tset)){ #Begin forloop
+    dt<-tset[i]-tset[i-1] #define dt
+    dN<-(r*N.simu[i-1]*(1-N.simu[i-1]/K))*dt #logistic equation
+    N.simu[i]=N.simu[i-1]+dN #populate N.simu with new population size
+  }
+  out<-list(tset=tset,N.simu=N.simu) #define output, with N.simu and tset
+  return(out) #return 'out' as output
+}
+t.test()
+tset<-seq(1,100,length.out=1000)
+simu1=logistic(100,.5,tset) #run the function
+plot(simu1$tset,simu1$N.simu,type='l',xlab="time",ylab="N population size") #plot it with $ operator
+#There you go!  Now we can easilty try different values for K and r
+simu2=logistic(,.5,tset)#run the function notice K is left blank, and therefore set to 100. Here we use indexing
+plot(simu2[[1]],simu2[[2]],type='l',xlab="time",ylab="N population size")#plot it
+#Try 3
+simu3=logistic(100,0.1,tset)#run the function
+plot(simu3[[1]],simu3[[2]],type='l',xlab="time",ylab="N population size")#plot it
+#Try 4
+simu4=logistic(1000,0.9,tset)#run the function
+plot(simu4[[1]],simu4[[2]],type='l',xlab="time",ylab="N population size")#plot it
+```
+
+Lets make a function to plot it.
+
+```{r}
+plot_logistic<-function(data){ #define the function with the data as the argument
+  tset=data[[1]]#extract tset
+  N.simu=data[[2]] #extract N.simu
+  plot(tset,N.simu,type='l',xlab="time",ylab="N population size")#Then plot it!
+  #Notice we don't need a return!
+  #plot(data[[1]],data[[2]],type='l',xlab="time",ylab="N population size") #another shorter option
+}
+#Now we can combine the two functions like this:
+plot_logistic(logistic(300,0.4,tset)) 
+plot_logistic(logistic(100,0.4,tset))
+plot_logistic(logistic(300,0.2,tset)) 
+plot_logistic(logistic(100,0.2,tset))#A homemade function within a homemade function
+```
+
+```{r}
+#By JT's rule I guess we have to make another function
+all=function(k,r){
+  return(plot_logistic(logistic(k,r,tset)))
+}
+
+for(i in 0:10){
+  all(100+10*i,.1 +0.1* i)
+}
+
+```
+
+Clearly, sometimes this can go too far. You dont need a function for EVERYTHING, just when they are helpful and make your code easier to read, write and use.
+
+**Part 2: System with Two Organisms**
+
+Now lets try a slightly more complicated system with two organisms. Lets try Lotka-Volterra predator prey equations. We can use the following equations from Lecture 9:
+
+$$
+\frac{dV}{dt}=bV-aVP\\
+\frac{dP}{dt}=kaVP-dP
+$$
+
+In these equations $V$ is the victim and $P$ is the predator. Then $b$ is the growth rate of the victim, and $a$ attack rate of the predator on the victim, $k$ is the conversion efficiency of victim biomass to predator biomass and $d$ is the predator death rate.
+
+Now lets make a function that can model this system with $b,a,k$ and $d$ as arguments of the function. But this time lets also make the initial conditions ($V_0$ and $P_0$) be arguments of the function as well.
+
+```{r}
+pv_simu<-function(b,a,k,d,V0,P0){ #name the function and list arguments
+  tset<-seq(from=1,to=50,length.out=10000)#define tset
+  V.simu<-NA*tset
+  V.simu[1]=V0 #empty V.simu and initial conditions
+  P.simu<-NA*tset
+  P.simu[1]=P0 #empty P.simu and initial conditions
+  for(i in 2:length(tset)){ #start for loop
+    dt=tset[i]-tset[i-1] #define dt
+    V=V.simu[i-1] 
+    P=P.simu[i-1] 
+    dV = (b*V - a*V*P) * dt #victim equation
+    dP = (k*a*V*P - d*P) * dt #predator equation
+    V.simu[i]= V + dV #update V.simu
+    P.simu[i]= P + dP #update P.simu
+  }
+ data=list(V.simu=V.simu,P.simu=P.simu,tset=tset)#combine everything into a list
+ return(data) #return the list
+}
+
+```
+
+Now we can test it.
+
+```{r}
+pv_data=pv_simu(0.95,1, 0.75,1,1,0.6) #arguments b,a,k,d,V0 and P0
+v_data=pv_data$V.simu #extract victim data with $ operator
+p_data=pv_data[[2]] #extract predator data with indexing
+tset=pv_data$tset #extract time data with $ operator
+plot(tset,v_data,type='l',col="red",xlab="Time",ylab="Population Size",ylim=c(0,3)) #plot victim
+lines(tset,p_data,col='blue')#plot predator
+legend(1,3,legend=c("V","P"),col=c("red","blue"),lty=c(1,1)) #add a legend
+```
+
+Here we can easily see how the system responds to changes in the parameters and initial conditions. Lets try a smaller growth rate for the victim, $b$.
+
+```{r}
+pv_data2=pv_simu(0.25,1, 0.75,1,1,0.6) #arguments b,a,k,d,V0 and P0
+v_data2=pv_data2[[1]] #extract victim data
+p_data2=pv_data2[[2]] #extract predator data
+tset2=pv_data2[[3]] #extract time data
+plot(tset2,v_data2,type='l',col="red",xlab="Time",ylab="Population Size",ylim=c(0,3))#Plot Victim
+lines(tset2,p_data2,col='blue')#plot predator
+legend(1,3,legend=c("V","P"),col=c("red","blue"),lty=c(1,1))#add a legend
+```
+
+Now we can define functions that solve ODEs. We can easily change parameters, and initial conditions to see how they impact the dynamics of the system. No more copying and pasting! What other things can we use functions for to make our lives easier? Can you make a function that makes a bifurcation diagram for different parameters?
+
+![](Coral/Paper/Paper_3/fullheatplot.jpg)
+
+# **BE CAREFUL!**
+
+-   A lot of whats going on is now hidden behind this function. Even though you know what the function is doing you may miss some important nuances. Did simulations go to equilibrium? Make sure you understand what your function is assuming.
+
+**Quick Example:**
+
+Lets make a function that finds the equilibrium of our logistic model.
+
+```{r}
+equilibrium<-function(d){ #input of the logistic growth data
+  eq=d[[2]][length(d[[2]])]
+  return(eq)}
+equilibrium(logistic(100,0.5,tset)) # Nailed it
+equilibrium(logistic(100,0.0001,tset)) # hold on?
+plot_logistic(logistic(100,0.0001,tset)) # Never reaches equilibrium
+tset=seq(1,200000)
+equilibrium(logistic(100,0.0001,tset))
+plot_logistic(logistic(100,0.0001,tset)) 
+```

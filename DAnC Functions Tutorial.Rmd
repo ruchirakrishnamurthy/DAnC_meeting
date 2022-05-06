@@ -1,0 +1,108 @@
+---
+title: "DAnC Functions Tutorial"
+author: "Jakob Kaare-Rasmussen"
+date: "3/9/2022"
+output: html_document
+---
+
+# **What is a function?**
+
+A function is a reusable group of instructions that takes some arguments, does computations with them, or manipulates them in some way and then returns an output. Functions in programming are very similar to functions in mathematics. Think back to middle school in high-school. We all learned the equation of a line as $f(x)=mx+b$. This is a function that takes an input ($x$) and returns an output ($mx+b$).
+
+We have already use a *lot* of functions in this class. For example, the length function.
+
+```{r}
+x<-1:10 #define x as a list of ten numbers
+length(x) #how long is x? 
+```
+
+Here length is a function that has an input (often called arguments) and an output. This function takes the vector x, and then counts the number of elements in x and then returns that number.
+
+Next lets try the sum function.
+
+```{r}
+sum(4,5) #use the function sum() to add 4 and 5
+```
+
+Here, the function sum() has 2 inputs (4 and 5 in this case), but only 1 output, which is the sum of the two inputs.
+
+Now lets try to make our own function.
+
+## **Make a Function**
+
+Lets start with the basic structure of a function.
+
+```{r}
+function_name<-function(argument_a, argument_b,...){ #name the function function_name with 2 possible inputs (argument_a, argument_b)
+  #This is the 'meat' of the function.
+  #Here is where you use argument_a and argument_b.
+  #Within the function you can call argument_a and argument_b, becasue they are locally defined. That means they are defined only within the function, not outside of the function. 
+  return(output)#What do we want to get out of this function?
+}
+```
+
+Can we make our own function to sum 2 numbers?
+
+```{r}
+sumfun<-function(n,m){# Name the function sumfun, and then define the function with 2 inputs, n and m
+  a=n+m #calculations of the function (sum n and m)
+  return(a) #return the sum of n and m
+}
+#Test:
+sumfun(1,2) #2 arguments (1, 2) with the sum as an output. 
+sumfun(100233,123415) #2 arguments (100233,123415) with the sum as an output.
+sumfun(1,2,3) #It can only add 2 inputs
+```
+
+Try it: Make a function that takes the difference of 2 numbers:
+
+```{r}
+diffun<-#complete the rest of the function
+```
+
+This function can only ever take 2 inputs. What if we want to add a varying amount of numbers with the same function?
+
+```{r}
+sumfun_v<-function(...){# ... allows the function to take any number of inputs
+  v=c(...)#make a vector out of inputs
+  s=0 #define starting condition of sum (0)
+  for(i in 1:length(v)){ #a for loop that adds all the inputs up regardless of the number of inputs
+    s=s+v[i]}
+  return(s)#return sum
+}
+sumfun_v(9,4,6,8,1) #add all the numbers
+x<-c(1,4,6,7,3,9,1003) #vector of numbers to sum
+sumfun_v(x,1,2,3) #even works when an input is a vector
+```
+
+Try it: Make a function that takes the mean of a list of data (without using the mean or sum function).
+
+```{r}
+meanfun=function(...){ #complete the rest of the function
+  return(m) 
+}
+```
+
+## **Locally vs. Globally Defined**
+
+Locally defined variables can only be accessed within a function where it is defined, and not the remainder of a code.
+
+Globally defined variables can be accessed anywhere within a code (once it has been defined).
+
+```{r}
+test<-function(a,b){ #locally defining a and b
+  w=b*a+n #what is n? It has not been locally defined
+  return(c(w,a)) #retunr both w and a
+}
+#test(1,2) #here we are locally defining a = 1 and b = 2
+#Doesn't work! The function doesnt know what n is because it hasnt been locally or globally defined
+#a #outside of the function a is not defined
+n=1 #Globally defining n. Once defined n is defined everywhere. 
+test(1,2) #now it knows what n is, as it is globally defined
+#a #outside of the function a is not defined
+n #outside of the function n IS defined
+a=5 #Globally define a. 
+test(1,2) #Will the function use a = 5 (global) or a = 1 (local)
+#the function will override the global definition of the varable for the local definition
+a
+```
